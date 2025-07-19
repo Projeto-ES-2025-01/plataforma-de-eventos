@@ -1,0 +1,19 @@
+<section>
+      <div class="login-container">
+        <h2>Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Digite seu email" />
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            Email Inválido.
+          </div>
+          <label>Senha</label>
+          <input type="password" formControlName="password" placeholder="Digite sua senha" required />
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            A senha é obrigatório.
+          </div>
+          <button type="submit" [disabled]="loginForm.invalid">Login</button>
+        </form>
+        <p>Não possui conta?  <a [routerLink]="['/register']">Se Cadastrar</a></p>
+      </div>
+    </section>
