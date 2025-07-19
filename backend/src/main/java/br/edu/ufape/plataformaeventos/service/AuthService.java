@@ -29,7 +29,7 @@ public class AuthService implements UserDetailsService {
         UserDetails userDetails = this.userRepository.findByEmail(userDTO.getEmail());
 
         if (userDetails != null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Email já existe!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já existe!");
         }
         String encriptedPassword = new BCryptPasswordEncoder().encode(userDTO.getPassword());
         
