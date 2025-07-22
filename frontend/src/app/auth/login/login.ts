@@ -22,13 +22,25 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
+  public errorMessage: string | null = null;
+
   onSubmit() {
     if (this.loginForm.valid) {
+      this.errorMessage = null;
       console.log('botão submit clicado');
       const { email, password } = this.loginForm.value;
+
       this.authService.login(email, password)
-      .then(user => this.router.navigate(['/home']))
-      .catch(err => alert('Login error: ' + err));
+        .then(sucess => {
+          if (sucess) {
+            this.router.navigate(['/home']);
+         } else {
+           this.errorMessage = 'Tentativa de login inválida. Verifique suas credenciais.';
+          }
+        })
+        .catch(() => {
+          this.errorMessage = 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.';
+      });
     }
   }
 }
