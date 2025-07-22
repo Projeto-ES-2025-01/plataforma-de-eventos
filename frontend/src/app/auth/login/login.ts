@@ -22,13 +22,22 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('botão submit clicado');
-      const { email, password } = this.loginForm.value;
-      this.authService.login(email, password)
-      .then(user => this.router.navigate(['/home']))
-      .catch(err => alert('Login error: ' + err));
+  loginInvalido: boolean = false;
+  async onSubmit(): Promise<void> {
+  if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
+    try {
+      const sucesso = await this.authService.login(email, password);
+      if (sucesso) {
+        this.loginInvalido = false;
+        this.router.navigate(['/home']);
+      } else {
+        this.loginInvalido = true;
+      }
+    } catch (error) {
+      console.error('Erro inesperado:', error);
+      this.loginInvalido = true;
     }
   }
+}
 }

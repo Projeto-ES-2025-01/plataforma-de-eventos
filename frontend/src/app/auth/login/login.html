@@ -13,6 +13,9 @@
             A senha é obrigatório.
           </div>
           <button type="submit" [disabled]="loginForm.invalid">Login</button>
+          <div *ngIf="loginInvalido" class="error-message">
+            Email ou senha inválidos.
+          </div>
         </form>
         <p>Não possui conta?  <a [routerLink]="['/register']">Se Cadastrar</a></p>
       </div>
