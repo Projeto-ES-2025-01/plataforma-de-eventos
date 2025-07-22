@@ -20,7 +20,7 @@
             A senha é obrigatório.
           </div>
 
-          <label>Confrimar Senha</label>
+          <label>Confirmar Senha</label>
           <input type="password" formControlName="confirmPassword" placeholder="Confirme sua senha" required />
           <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
             Confirme sua senha.
@@ -28,5 +28,6 @@
           
           <button type="submit" [disabled]="registerForm.invalid">Register</button>
         </form>
+        <button type="button" routerLink="/login">Cancelar</button>
       </div>
     </section>
