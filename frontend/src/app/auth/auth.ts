@@ -9,8 +9,9 @@ export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
 
   async login(email: string, password: string): Promise<boolean> {
+    console.log('Tentando fazer login');
     try {
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch(this.apiUrl + '/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -34,8 +35,9 @@ export class AuthService {
   }
 
   async register(newUser: User): Promise<User | null> {
+    console.log('Tentando fazer register');
     try {
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch(this.apiUrl + '/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser)
