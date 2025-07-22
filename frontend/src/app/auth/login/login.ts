@@ -22,25 +22,22 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
-  public errorMessage: string | null = null;
-
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.errorMessage = null;
-      console.log('botão submit clicado');
-      const { email, password } = this.loginForm.value;
-
-      this.authService.login(email, password)
-        .then(sucess => {
-          if (sucess) {
-            this.router.navigate(['/home']);
-         } else {
-           this.errorMessage = 'Tentativa de login inválida. Verifique suas credenciais.';
-          }
-        })
-        .catch(() => {
-          this.errorMessage = 'Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.';
-      });
+  loginInvalido: boolean = false;
+  async onSubmit(): Promise<void> {
+  if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
+    try {
+      const sucesso = await this.authService.login(email, password);
+      if (sucesso) {
+        this.loginInvalido = false;
+        this.router.navigate(['/home']);
+      } else {
+        this.loginInvalido = true;
+      }
+    } catch (error) {
+      console.error('Erro inesperado:', error);
+      this.loginInvalido = true;
     }
   }
+}
 }
