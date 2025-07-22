@@ -24,6 +24,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      console.log('botão submit clicado');
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password)
       .then(user => this.router.navigate(['/home']))

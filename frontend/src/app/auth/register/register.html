@@ -8,6 +8,12 @@
             Email Inválido.
           </div>
 
+          <label>Nome</label>
+          <input type="text" formControlName="name" placeholder="Digite seu nome" required />
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+            Nome é obrigatório.
+          </div>
+
           <label>Senha</label>
           <input type="password" formControlName="password" placeholder="Digite sua senha" required />
           <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
