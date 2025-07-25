@@ -19,6 +19,8 @@ public class UserDTO {
 
     @NotBlank(message = "Senha não pode ser vazia")
     @Size(min = 8, message = "Senha deve ter pelo menos 8 caracteres")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", 
+             message = "Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número")
     private String password;
     
     private UserRole role;
