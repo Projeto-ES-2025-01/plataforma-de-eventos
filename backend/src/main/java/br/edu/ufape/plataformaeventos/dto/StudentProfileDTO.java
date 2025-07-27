@@ -1,12 +1,14 @@
 package br.edu.ufape.plataformaeventos.dto;
 
+import java.time.LocalDate;
+
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
 
 public class StudentProfileDTO {
 
     private String fullName;
     private String cpf;
-    private String birthDate;
+    private LocalDate birthDate;
     private String phoneNumber;
     private DegreeProgram degreeProgram;
     private int currentPeriod;
@@ -19,7 +21,7 @@ public class StudentProfileDTO {
         return cpf;
     }
 
-    public String getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -43,7 +45,7 @@ public class StudentProfileDTO {
         this.cpf = cpf;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
