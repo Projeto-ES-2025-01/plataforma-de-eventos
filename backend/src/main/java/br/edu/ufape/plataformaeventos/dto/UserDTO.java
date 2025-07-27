@@ -3,11 +3,14 @@ package br.edu.ufape.plataformaeventos.dto;
 import br.edu.ufape.plataformaeventos.util.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class UserDTO {
 
     @NotBlank(message = "Nome não pode ser vazio")
+    @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ]+$", message = "Nome deve conter apenas letras")
     private String name;
     
     @NotBlank(message = "Email não pode ser vazio")
@@ -16,6 +19,8 @@ public class UserDTO {
 
     @NotBlank(message = "Senha não pode ser vazia")
     @Size(min = 8, message = "Senha deve ter pelo menos 8 caracteres")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$", 
+             message = "Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número")
     private String password;
     
     private UserRole role;
