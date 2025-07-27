@@ -48,6 +48,10 @@ public class StudentProfile {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    public StudentProfile() {
+        
+    }
+
     public StudentProfile(String fullName, String cpf, LocalDate birthDate, String phone, DegreeProgram degreeProgram, Integer currentPeriod, User user) {
         this.fullName = fullName;
         this.cpf = cpf;
