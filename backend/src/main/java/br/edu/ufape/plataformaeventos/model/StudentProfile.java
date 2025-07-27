@@ -1,6 +1,8 @@
 package br.edu.ufape.plataformaeventos.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
 import jakarta.persistence.Column;
@@ -11,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -47,6 +50,9 @@ public class StudentProfile {
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
+    @ManyToMany(mappedBy = "participants")
+    private Set<Event> events = new HashSet<>();;
 
     public StudentProfile() {
         
@@ -94,6 +100,10 @@ public class StudentProfile {
         return user;
     }
 
+    public Set<Event> getEvents() {
+        return events;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -124,6 +134,10 @@ public class StudentProfile {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
     }
 
 

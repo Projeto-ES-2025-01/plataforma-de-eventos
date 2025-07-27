@@ -1,6 +1,6 @@
 package br.edu.ufape.plataformaeventos.model;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,7 +29,7 @@ public class OrganizerProfile {
     private User user;
 
     @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Event> events;
+    private Set<Event> events;
 
     public OrganizerProfile() {
 
@@ -47,7 +47,7 @@ public class OrganizerProfile {
         return user;
     }
 
-    public List getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
 
@@ -59,7 +59,7 @@ public class OrganizerProfile {
         this.user = user;
     }
 
-    public void setEvents(List events) {
+    public void setEvents(Set<Event> events) {
         this.events = events;
     }
 
