@@ -3,7 +3,8 @@ package br.edu.ufape.plataformaeventos.util;
 public enum UserRole {
     
     ADMIN("ADMIN"),
-    USER("USER");
+    STUDENT("STUDENT"),
+    ORGANIZER("ORGANIZER");
 
     private final String role;
 
