@@ -1,0 +1,75 @@
+<section>
+  <div class="register-container">
+    <h2>Cadastro de Estudante</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Campos do UserDTO -->
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="Digite seu email" required />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        Email inválido.
+      </div>
+
+      <label>Nome de Usuário</label>
+      <input type="text" formControlName="name" placeholder="Nome de usuário" required />
+      <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+        Nome é obrigatório.
+      </div>
+
+      <label>Senha</label>
+      <input type="password" formControlName="password" placeholder="Digite sua senha" required />
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        A senha é obrigatória.
+      </div>
+
+      <label>Confirmar Senha</label>
+      <input type="password" formControlName="confirmPassword" placeholder="Confirme sua senha" required />
+      <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+        Confirme sua senha.
+      </div>
+
+      <!-- Campos do StudentProfileDTO -->
+      <label>Nome Completo</label>
+      <input type="text" formControlName="fullName" placeholder="Nome completo" required />
+      <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
+        Nome completo é obrigatório.
+      </div>
+
+      <label>CPF</label>
+      <input type="text" formControlName="cpf" placeholder="000.000.000-00" required />
+      <div *ngIf="registerForm.get('cpf')?.invalid && registerForm.get('cpf')?.touched">
+        CPF é obrigatório.
+      </div>
+
+      <label>Data de Nascimento</label>
+      <input type="date" formControlName="birthDate" required />
+      <div *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched">
+        Data de nascimento é obrigatória.
+      </div>
+
+      <label>Telefone</label>
+      <input type="tel" formControlName="phoneNumber" placeholder="(00) 00000-0000" required />
+      <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
+        Telefone é obrigatório.
+      </div>
+
+      <label>Curso</label>
+      <select formControlName="degreeProgram" required>
+        <option value="">Selecione</option>
+        <option value="CIENCIA_DA_COMPUTACAO">Ciência da Computação</option>
+        <option value="ENGENHARIA">Engenharia</option>
+        <!-- Adicione mais opções conforme seu backend aceitar -->
+      </select>
+      <div *ngIf="registerForm.get('degreeProgram')?.invalid && registerForm.get('degreeProgram')?.touched">
+        Curso é obrigatório.
+      </div>
+
+      <label>Período Atual</label>
+      <input type="number" formControlName="currentPeriod" min="1" required />
+      <div *ngIf="registerForm.get('currentPeriod')?.invalid && registerForm.get('currentPeriod')?.touched">
+        Período atual é obrigatório.
+      </div>
+
+      <button type="submit" [disabled]="registerForm.invalid">Cadastrar</button>
+    </form>
+  </div>
+</section>
