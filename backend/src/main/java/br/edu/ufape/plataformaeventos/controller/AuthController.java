@@ -67,4 +67,5 @@ public class AuthController {
         Object result = authService.register(userRegistrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+   
 }
