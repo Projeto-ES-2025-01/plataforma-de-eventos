@@ -2,6 +2,7 @@ package br.edu.ufape.plataformaeventos.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
@@ -51,7 +52,7 @@ public class EventDTO {
         return time;
     }
 
-    public void setTime(String name) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
