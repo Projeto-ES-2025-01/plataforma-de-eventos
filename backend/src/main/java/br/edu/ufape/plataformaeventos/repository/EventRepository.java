@@ -1,6 +1,8 @@
 package br.edu.ufape.plataformaeventos.repository;
 
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +15,9 @@ import br.edu.ufape.plataformaeventos.model.Event;
 public interface EventRepository extends JpaRepository<Event, Long> {
 
     Optional<Event> findByName(String name);
+
+    List<Event> findByNameIgnoreCase(String name);
+    
+    List<Event> findByEventDateBetween(LocalDate minDate, LocalDate maxDate);
     
 }
