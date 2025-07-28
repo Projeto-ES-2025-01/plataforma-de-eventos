@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufape.plataformaeventos.dto.AuthDTO;
 import br.edu.ufape.plataformaeventos.dto.LoginResponseDTO;
+import br.edu.ufape.plataformaeventos.dto.UserDTO;
 import br.edu.ufape.plataformaeventos.dto.UserRegistrationDTO;
 import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.security.TokenService;
@@ -44,14 +45,25 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDTO(token));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
-        if(userRegistrationDTO.getStudentProfileDTO() != null) {
-            userRegistrationDTO.getUserDTO().setRole(UserRole.STUDENT);
-        } else {
-            userRegistrationDTO.getUserDTO().setRole(UserRole.ORGANIZER);
-        }
-        
+
+    @PostMapping("/register/student")
+    public ResponseEntity<?> registerStudent(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
+
+        userRegistrationDTO.getUserDTO().setRole(UserRole.STUDENT);
+
+        Object result = authService.register(userRegistrationDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @PostMapping("/register/organizer")
+    public ResponseEntity<?> registerOrganizer(@RequestBody @Valid UserDTO userDTO) {
+
+        UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
+        userRegistrationDTO.setUserDTO(userDTO);
+        userRegistrationDTO.setStudentProfileDTO(null);
+
+        userRegistrationDTO.getUserDTO().setRole(UserRole.ORGANIZER);
+
         Object result = authService.register(userRegistrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
