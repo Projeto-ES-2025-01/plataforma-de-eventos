@@ -27,7 +27,7 @@ public class EventDTO {
     private String location;
 
     @NotBlank(message = "Descrição não pode ser vazio")
-    @Size(min = 50, max = 1000, message = "Nome deve ter entre 100 e 500 caracteres")
+    @Size(min = 50, max = 1000, message = "Nome deve ter entre 50 e 1000 caracteres")
     private String description;
 
 
@@ -55,7 +55,7 @@ public class EventDTO {
         this.time = time;
     }
 
-    public String getlocation(String location){
+    public String getLocation(){
         return location;
     }
 
@@ -63,12 +63,12 @@ public class EventDTO {
         this.location = location;
     }
 
-    public String getDescription(String description){
+    public String getDescription(){
         return description;
     } 
     
     public void setDescription(String description){
         this.description = description;
     }
-    
+
 }
