@@ -18,7 +18,7 @@
       <label>Senha</label>
       <input type="password" formControlName="password" placeholder="Digite sua senha" required />
       <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        A senha é obrigatória.
+        A senha é obrigatória. Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número.
       </div>
 
       <label>Confirmar Senha</label>

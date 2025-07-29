@@ -79,6 +79,7 @@ export class AuthService {
     }
     try {
       const decodedToken: any = jwtDecode(token);
+      console.log('Decoded token:', decodedToken.role);
       return decodedToken.role === requiredRole;
     } catch (error) {
       console.error('Token error:', error);

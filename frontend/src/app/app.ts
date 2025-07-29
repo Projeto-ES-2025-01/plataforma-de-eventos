@@ -22,6 +22,14 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
+  hasOrganizerRole(): boolean {
+    return this.authService.hasRole('ORGANIZER');
+  }
+
+  createEvent() {
+  this.router.navigate(['/criar-evento']);
+}
+
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }

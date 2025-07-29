@@ -6,6 +6,7 @@ import { Unauthorized } from "./auth/unauthorized/unauthorized";
 import { HomeComponent } from "./home/home";
 import { EventoComponent } from '../evento/evento';
 import { RegisterStudentComponent } from './auth/register-student/register-student';
+import { CriarEventoComponent } from '../evento/criar-evento/criar-evento';
 
 export const routes: Routes = [
     { 
@@ -27,8 +28,8 @@ export const routes: Routes = [
         path: 'home', component: HomeComponent, canActivate: [authGuard], title: 'Home Page' 
     },
     { 
-        path: 'evento/:id', component: EventoComponent, canActivate: [authGuard], title: 'Details Page',
-        data: { role: 'user' }
+        path: 'criar-evento', component: CriarEventoComponent, canActivate: [authGuard], title: 'Details Page',
+        //data: { role: 'ORGANIZADOR' }
     },
     { 
         path: '**', redirectTo: 'login' 

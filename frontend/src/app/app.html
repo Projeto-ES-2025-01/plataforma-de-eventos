@@ -3,6 +3,7 @@
         <img class="brand-logo" src="assets/logo.svg" 
           alt="logo" aria-hidden="true" />
           <button class="logout" (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
+          <button class="createevent" (click)="createEvent()" *ngIf="isAuthenticated()">Criar Evento</button>
       </header>
       <section class="content">
         <router-outlet></router-outlet>
