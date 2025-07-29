@@ -1,5 +1,6 @@
 package br.edu.ufape.plataformaeventos.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,10 @@ public class EventService {
     
     public List<Event> findByNameIgnoreCase(String name) {
         return eventRepository.findByNameIgnoreCase(name);
+    }
+
+    public List<Event> findByDateBetween(LocalDate miDate,LocalDate maxDate){
+        return eventRepository.findByDateBetween(maxDate, miDate);
     }
 
 
