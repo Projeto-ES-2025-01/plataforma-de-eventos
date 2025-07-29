@@ -1,1 +1,10 @@
-<p>Home provisória para testes</p>
+<section>
+      <form>
+        <input type="text" placeholder="Filtrar por nome" #filter> 
+        <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+      </form>
+    </section>
+    <section class="results">
+      <app-evento *ngFor="let EventoComponent of filteredEventoList" 
+       [evento]="EventoComponent"></app-evento>
+    </section>

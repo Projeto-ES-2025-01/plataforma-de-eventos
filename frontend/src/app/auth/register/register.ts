@@ -33,7 +33,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       console.log('botão submit clicado');
       const { email, password, name } = this.registerForm.value;
-      const newUser = { id:0 ,email, name, password, role: 'USER' };
+      const newUser = {email, name, password};
 
       this.authService.register(newUser)
       .then(() => this.router.navigate(['/login']))
