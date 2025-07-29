@@ -3,9 +3,10 @@ package br.edu.ufape.plataformaeventos.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -16,12 +17,15 @@ public class EventDTO {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ]+$", message = "Nome deve conter apenas letras")
     private String name;
 
-    @NotBlank(message = "Data é obrigatório")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @NotNull(message = "ID não pode ser nulo")
+    private Long id;
+
+    @NotNull(message = "Data é obrigatório")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
-    @NotBlank(message = "Hora é obrigatório")
-    @DateTimeFormat(pattern = "HH:mm")
+    @NotNull(message = "Hora é obrigatório")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
 
     @NotBlank(message = "Localização é obrigatório")
@@ -71,5 +75,15 @@ public class EventDTO {
     public void setDescription(String description){
         this.description = description;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    
 
 }

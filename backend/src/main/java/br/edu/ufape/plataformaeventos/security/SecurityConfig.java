@@ -34,9 +34,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "auth/register/organizer").permitAll()
-                        .requestMatchers(HttpMethod.POST, "auth/register/student").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.POST, "/auth/register/organizer").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register/student").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/event/create").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
