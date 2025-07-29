@@ -18,7 +18,7 @@ export class RegisterComponent {
 
   registerForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)]],
     name: ['', [Validators.required, Validators.minLength(3)]],
     confirmPassword: ['', [Validators.required]]
   }, { validators: this.passwordMatchValidator });
@@ -33,7 +33,7 @@ export class RegisterComponent {
     if (this.registerForm.valid) {
       console.log('botão submit clicado');
       const { email, password, name } = this.registerForm.value;
-      const newUser = { id:0 ,email, name, password, role: 'USER' };
+      const newUser = {email, name, password};
 
       this.authService.register(newUser)
       .then(() => this.router.navigate(['/login']))

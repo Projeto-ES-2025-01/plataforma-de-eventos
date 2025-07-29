@@ -1,6 +1,6 @@
 <section>
       <div class="register-container">
-        <h2>Cadastro</h2>
+        <h2>Cadastro de organizador</h2>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <label>Email</label>
           <input type="email" formControlName="email" placeholder="Digite seu email" required />
@@ -17,7 +17,7 @@
           <label>Senha</label>
           <input type="password" formControlName="password" placeholder="Digite sua senha" required />
           <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-            A senha é obrigatório.
+            A senha é obrigatório. Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número.
           </div>
 
           <label>Confirmar Senha</label>

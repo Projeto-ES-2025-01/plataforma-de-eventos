@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from './user';
+import { StudentRegisterRequest, User, UserDTO } from './user';
 import { jwtDecode} from 'jwt-decode';
 
 @Injectable({
@@ -34,10 +34,10 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  async register(newUser: User): Promise<User | null> {
+  async register(newUser: UserDTO): Promise<User | null> {
     console.log('Tentando fazer register');
     try {
-      const response = await fetch(this.apiUrl + '/register', {
+      const response = await fetch(this.apiUrl + '/register/organizer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser)
@@ -48,6 +48,25 @@ export class AuthService {
       return null;
     }
   }
+
+  async registerStudent(request: StudentRegisterRequest): Promise<any> {
+  try {
+    const response = await fetch(this.apiUrl + '/register/student', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao registrar estudante');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro no registro do estudante:', error);
+    return null;
+  }
+}
 
   isAuthenticated(): boolean {
     return !!this.getToken();
@@ -60,6 +79,7 @@ export class AuthService {
     }
     try {
       const decodedToken: any = jwtDecode(token);
+      console.log('Decoded token:', decodedToken.role);
       return decodedToken.role === requiredRole;
     } catch (error) {
       console.error('Token error:', error);

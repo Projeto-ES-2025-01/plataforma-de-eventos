@@ -1,6 +1,6 @@
 package br.edu.ufape.plataformaeventos.service;
 
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,13 +61,11 @@ public class EventService {
         return eventRepository.findByName(name);
     }
     
-    /*public List<Event> findByNameIgnoreCase(String name) {
+    public List<Event> findByNameIgnoreCase(String name) {
         return eventRepository.findByNameIgnoreCase(name);
     }
 
-    public List<Event> findByEventDateRange(LocalDate minDate, LocalDate maxDate) {
-        return eventRepository.findByEventDateBetween(minDate, maxDate);
-    }*/
+
 
     
 
