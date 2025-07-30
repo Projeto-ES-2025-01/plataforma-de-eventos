@@ -29,7 +29,7 @@ export const routes: Routes = [
     },
     { 
         path: 'criar-evento', component: CriarEventoComponent, canActivate: [authGuard], title: 'Details Page',
-        //data: { role: 'ORGANIZADOR' }
+        data: { role: 'ORGANIZER' }
     },
     { 
         path: '**', redirectTo: 'login' 

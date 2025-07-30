@@ -79,11 +79,25 @@ export class AuthService {
     }
     try {
       const decodedToken: any = jwtDecode(token);
-      console.log('Decoded token:', decodedToken.role);
+      //console.log('Decoded token:', decodedToken.role);
       return decodedToken.role === requiredRole;
     } catch (error) {
       console.error('Token error:', error);
       return false;
+    }
+  }
+
+  getUserId(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      //console.log('Decoded token:', decoded.id);
+      return decoded.id || decoded.sub || null; // depende de como o backend codifica o ID
+    } catch (e) {
+      console.error('Erro ao decodificar token:', e);
+      return null;
     }
   }
 

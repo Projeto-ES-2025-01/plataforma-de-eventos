@@ -1,6 +1,4 @@
 <section class="event-card">
-  <img class="event-photo" [src]="evento.photo" 
-       alt="Photo of {{evento.name}}" />
 
   <h2 class="event-title">{{ evento.name }}</h2>
 
@@ -9,19 +7,11 @@
   </p>
 
   <p class="event-time">
-    {{ evento.time }}
-  </p>
-
-  <p class="event-organizer">
-    👤 Organized by: {{ evento.organizer }}
+    {{ evento.date }}
   </p>
 
   <p class="event-description">
     📝 {{ evento.description }}
-  </p>
-
-  <p class="event-participants">
-    👥 {{ evento.numberOfParticipants }} / {{ evento.maxParticipants }} participants
   </p>
 
   <a [routerLink]="['/event-details', evento.id]">Learn More</a>
