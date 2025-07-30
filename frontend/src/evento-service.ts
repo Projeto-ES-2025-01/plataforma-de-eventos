@@ -6,7 +6,7 @@ import { EventoInterface } from './app/eventoInterface';
 })
 export class EventoService {
 
-  url = 'http://localhost:3000/eventos'
+  url = 'http://localhost:8080/event'
 
   constructor() { }
 
@@ -25,7 +25,7 @@ export class EventoService {
   }
 
   async addEvento(EventoInterface: EventoInterface) {
-    const response = await fetch(this.url, {
+    const response = await fetch(this.url + '/create', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
