@@ -11,7 +11,7 @@ import br.edu.ufape.plataformaeventos.model.Event;
 
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Long> {
+public interface EventRepository extends JpaRepository<Event, Long>,EventRepositoryCustom {
 
     Optional<Event> findByName(String name);
 

@@ -1,0 +1,11 @@
+<form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
+  <input formControlName="name" placeholder="Nome do evento" />
+  <input formControlName="location" placeholder="Local" />
+  <input type="datetime-local" formControlName="time" />
+  <input formControlName="photo" placeholder="URL da foto" />
+  <input formControlName="organizer" placeholder="Organizador" />
+  <textarea formControlName="description" placeholder="Descrição"></textarea>
+  <input type="number" formControlName="maxParticipants" placeholder="Máximo de participantes" />
+
+  <button type="submit" [disabled]="eventoForm.invalid">Criar Evento</button>
+</form>
