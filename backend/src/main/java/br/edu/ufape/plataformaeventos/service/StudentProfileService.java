@@ -10,6 +10,7 @@ import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
 import br.edu.ufape.plataformaeventos.util.UserRole;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -45,4 +46,35 @@ public class StudentProfileService {
         return studentProfile;
     }
 
+    public StudentProfileDTO getStudentProfile(String email) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
+        
+        if (studentProfile == null){
+            return null;
+        }
+        else {
+            return studentProfile.toDTO();
+        }
+    }
+
+    public void updateStudentProfile(StudentProfileDTO studentProfileDTO){
+        StudentProfile studentProfile = studentProfileRepository.findByCpf(studentProfileDTO.getCpf());
+
+        if (studentProfile != null) {
+            studentProfile.setFullName(studentProfileDTO.getFullName());
+            studentProfile.setBirthDate(studentProfileDTO.getBirthDate());
+            studentProfile.setPhoneNumber(studentProfileDTO.getPhoneNumber());
+            studentProfile.setDegreeProgram(studentProfileDTO.getDegreeProgram());
+            studentProfile.setCurrentPeriod(studentProfileDTO.getCurrentPeriod());
+            studentProfileRepository.save(studentProfile);
+        }
+    }   
+
+    public void deleteStudentProfile(String email) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
+        if (studentProfile == null) {
+            throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
+        }
+        studentProfileRepository.delete(studentProfile);
+    }
 }

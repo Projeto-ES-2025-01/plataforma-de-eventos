@@ -17,7 +17,8 @@ export class CriarEventoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private eventoService: EventoService
+    private eventoService: EventoService,
+    private authService: AuthService 
   ) {}
 
   ngOnInit(): void {
@@ -25,22 +26,42 @@ export class CriarEventoComponent implements OnInit {
       name: ['', Validators.required],
       location: ['', Validators.required],
       time: ['', Validators.required],
-      photo: [''],
-      organizer: ['', Validators.required],
+      date: ['', Validators.required],
       description: ['', Validators.required],
-      numberOfParticipants: [0],
-      maxParticipants: [1, Validators.required]
     });
   }
 
-  async onSubmit() {
-    if (this.eventoForm.invalid) {
-      return;
-    }
+  onSubmit(): void {
+  if (this.eventoForm.valid) {
+    const formValue = this.eventoForm.value;
 
-    const novoEvento: EventoInterface = this.eventoForm.value;
-    await this.eventoService.addEvento(novoEvento);
-    alert('Evento criado com sucesso!');
-    this.eventoForm.reset();
+    const { date, time, name, location, description } = formValue;
+    const [datePart] = date.split('T');
+    const [year, month, day] = datePart.split('-');
+    const dateTimeString = `${day}/${month}/${year}`;
+    const dateTime = new Date(dateTimeString);
+    const userId = parseInt(this.authService.getUserId() || '0', 10);
+
+    const eventoFinal = {
+      id: userId,
+      name,
+      location,
+      date: dateTimeString,
+      time: dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      description
+    };
+
+    this.eventoService.addEvento(eventoFinal)
+      .then(() => {
+        alert('Evento criado com sucesso!');
+        this.eventoForm.reset();
+      })
+      .catch(error => {
+        console.error('Erro ao criar evento:', error);
+        alert('Erro ao criar evento');
+      });
+  } else {
+    alert('Formulário inválido!');
   }
+}
 }
