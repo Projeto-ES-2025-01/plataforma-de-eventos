@@ -10,4 +10,6 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
 
     StudentProfile findByUserEmail(String email);
 
+    StudentProfile findByCpf(String cpf);
+
 }
