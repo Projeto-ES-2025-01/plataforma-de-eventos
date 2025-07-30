@@ -56,4 +56,21 @@ public class StudentProfileService {
         }
     }
 
+    public void updateStudentProfile(StudentProfileDTO studentProfileDTO){
+        StudentProfile studentProfile = studentProfileRepository.findByCpf(studentProfileDTO.getCpf());
+
+        if (studentProfile != null) {
+        studentProfile.setFullName(studentProfileDTO.getFullName());
+        studentProfile.setBirthDate(studentProfileDTO.getBirthDate());
+        studentProfile.setPhoneNumber(studentProfileDTO.getPhoneNumber());
+        studentProfile.setDegreeProgram(studentProfileDTO.getDegreeProgram());
+        studentProfile.setCurrentPeriod(studentProfileDTO.getCurrentPeriod());
+        studentProfileRepository.save(studentProfile);
+
+        
+
+    }
+
+}
+
 }
