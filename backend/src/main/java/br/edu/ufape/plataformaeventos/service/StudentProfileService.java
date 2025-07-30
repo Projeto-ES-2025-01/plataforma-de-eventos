@@ -45,4 +45,15 @@ public class StudentProfileService {
         return studentProfile;
     }
 
+    public StudentProfileDTO getStudentProfile(String email) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
+        
+        if (studentProfile == null){
+            return null;
+        }
+        else {
+            return studentProfile.toDTO();
+        }
+    }
+
 }
