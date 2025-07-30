@@ -2,7 +2,7 @@ package br.edu.ufape.plataformaeventos.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +32,8 @@ public class EventService {
     }
 
 
-    public Event updateLocation(String nameEvent, EventDTO eventDTO) {
-        Event entity = eventRepository.findByName(nameEvent)
+    public Event updateLocation(Long idEvent, EventDTO eventDTO) {
+        Event entity = eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
         "Evento não encontrado!"));
 
@@ -42,27 +42,23 @@ public class EventService {
         return entity;
     }
     
-    public Event getEventDetails(String nameEvent) {
-        return this.eventRepository.findByName(nameEvent)
+    public Event getEventDetails(Long idEvent) {
+        return this.eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
         "Evento não encontrada!"));
     }
 
-    public void deleteLocation(String nameEvent) {
-        if (nameEvent == null) {
+    public void deleteEvent(Long idEvent ) {
+        if (idEvent == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O nome do Evento é obrigatório!");
         }
-        Event entity = eventRepository.findByName(nameEvent)
+        Event entity = eventRepository.findById(idEvent)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
 
         eventRepository.delete(entity);
     }
-
-    public Optional<Event> findByName(String name) {
-        return eventRepository.findByName(name);
-    }
     
-    public List<Event> findByNameIgnoreCase(String name) {
+    public List<Event> findByName(String name) {
         return eventRepository.findByNameIgnoreCase(name);
     }
 
