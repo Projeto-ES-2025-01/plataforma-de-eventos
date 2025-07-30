@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -140,5 +141,15 @@ public class StudentProfile {
         this.events = events;
     }
 
+    public StudentProfileDTO toDTO() {
+    StudentProfileDTO dto = new StudentProfileDTO();
+    dto.setFullName(this.getFullName());
+    dto.setCpf(this.getCpf());
+    dto.setBirthDate(this.getBirthDate());
+    dto.setPhoneNumber(this.getPhoneNumber());
+    dto.setDegreeProgram(this.getDegreeProgram());
+    dto.setCurrentPeriod(this.getCurrentPeriod());
+    return dto;
+}
 
 }
