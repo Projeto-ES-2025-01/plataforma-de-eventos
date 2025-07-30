@@ -32,7 +32,7 @@ public class EventService {
     }
 
 
-    public Event updateLocation(Long idEvent, EventDTO eventDTO) {
+    public Event updateEvent(Long idEvent, EventDTO eventDTO) {
         Event entity = eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
         "Evento não encontrado!"));
