@@ -10,6 +10,7 @@ import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
 import br.edu.ufape.plataformaeventos.util.UserRole;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -60,17 +61,18 @@ public class StudentProfileService {
         StudentProfile studentProfile = studentProfileRepository.findByCpf(studentProfileDTO.getCpf());
 
         if (studentProfile != null) {
-        studentProfile.setFullName(studentProfileDTO.getFullName());
-        studentProfile.setBirthDate(studentProfileDTO.getBirthDate());
-        studentProfile.setPhoneNumber(studentProfileDTO.getPhoneNumber());
-        studentProfile.setDegreeProgram(studentProfileDTO.getDegreeProgram());
-        studentProfile.setCurrentPeriod(studentProfileDTO.getCurrentPeriod());
-        studentProfileRepository.save(studentProfile);
+            studentProfile.setFullName(studentProfileDTO.getFullName());
+            studentProfile.setBirthDate(studentProfileDTO.getBirthDate());
+            studentProfile.setPhoneNumber(studentProfileDTO.getPhoneNumber());
+            studentProfile.setDegreeProgram(studentProfileDTO.getDegreeProgram());
+            studentProfile.setCurrentPeriod(studentProfileDTO.getCurrentPeriod());
+            studentProfileRepository.save(studentProfile);
+        }
+    }   
 
-        
-
+    public void deleteStudentProfile(Long id) {
+        StudentProfile studentProfile = studentProfileRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Perfil de Estudante não encontrado com id: " + id));
+        studentProfileRepository.delete(studentProfile);
     }
-
-}
-
 }
