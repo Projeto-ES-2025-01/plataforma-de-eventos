@@ -48,10 +48,10 @@ public class StudentProfileController {
             return ResponseEntity.status(HttpStatus.OK).build();}
     }
 
-    @DeleteMapping("/deleteProfile/{id}")
-    public ResponseEntity<Void> deleteStudentProfile(@PathVariable Long id) {
+    @DeleteMapping("/deleteProfile/{email}")
+    public ResponseEntity<Void> deleteStudentProfile(@PathVariable String email) {
         try {
-            studentProfileService.deleteStudentProfile(id);
+            studentProfileService.deleteStudentProfile(email);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

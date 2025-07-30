@@ -70,9 +70,11 @@ public class StudentProfileService {
         }
     }   
 
-    public void deleteStudentProfile(Long id) {
-        StudentProfile studentProfile = studentProfileRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Perfil de Estudante não encontrado com id: " + id));
+    public void deleteStudentProfile(String email) {
+        StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
+        if (studentProfile == null) {
+            throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
+        }
         studentProfileRepository.delete(studentProfile);
     }
 }
