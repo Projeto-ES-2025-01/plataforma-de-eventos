@@ -86,4 +86,16 @@ public class EventController {
             }
         }
 
+    @GetMapping("/search/participants/{eventId}/cpf")
+    public ResponseEntity<StudentProfileDTO> searchParticipantByCpf(
+        @PathVariable Long eventId,
+        @RequestParam String cpf) {
+        
+        try {
+            StudentProfileDTO participant = eventService.findParticipantByCpf(eventId, cpf);
+            return ResponseEntity.ok(participant);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

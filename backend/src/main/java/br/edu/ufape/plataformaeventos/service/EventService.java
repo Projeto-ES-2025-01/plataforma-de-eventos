@@ -17,6 +17,7 @@ import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
+import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 
 @Service
 public class EventService {
@@ -26,6 +27,9 @@ public class EventService {
 
     @Autowired
     private OrganizerProfileRepository organizerProfileRepository;
+
+    @Autowired
+    private StudentProfileRepository studentProfileRepository;
 
     public Event createEvent(EventDTO eventDTO) {
         Event entity = new Event();
@@ -79,6 +83,21 @@ public class EventService {
             .filter(student -> student.getFullName().toLowerCase().contains(name.toLowerCase().trim()))
         .map(StudentProfile::toDTO)
         .collect(Collectors.toList());    
+    }
+
+    public StudentProfileDTO findParticipantByCpf(Long eventId, String cpf) {
+        Event event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+        
+        StudentProfile participant = studentProfileRepository.findByCpf(cpf);
+        if (participant == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participante não encontrado!");
+        }
+
+        if (!event.getParticipants().contains(participant)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participante não está inscrito neste evento!");
+        }
+        return participant.toDTO();    
     }
 
     
