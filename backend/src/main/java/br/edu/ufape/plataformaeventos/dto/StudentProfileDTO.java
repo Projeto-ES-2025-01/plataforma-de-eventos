@@ -3,14 +3,21 @@ package br.edu.ufape.plataformaeventos.dto;
 import java.time.LocalDate;
 
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
+import jakarta.validation.constraints.NotBlank;
 
 public class StudentProfileDTO {
 
+    @NotBlank(message = "Nome completo é obrigatório")
     private String fullName;
+    @NotBlank(message = "CPF é obrigatório")
     private String cpf;
+    @NotBlank(message = "Data de nascimento é obrigatória")
     private LocalDate birthDate;
+    @NotBlank(message = "Número de telefone é obrigatório")
     private String phoneNumber;
+    @NotBlank(message = "Curso é obrigatório")
     private DegreeProgram degreeProgram;
+    @NotBlank(message = "Período atual é obrigatório")
     private int currentPeriod;
 
     public String getFullName() {
