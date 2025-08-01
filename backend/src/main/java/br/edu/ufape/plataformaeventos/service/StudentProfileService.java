@@ -1,5 +1,8 @@
 package br.edu.ufape.plataformaeventos.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,5 +79,11 @@ public class StudentProfileService {
             throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
         }
         studentProfileRepository.delete(studentProfile);
+    }
+
+    public List<StudentProfileDTO> getAllStudentProfiles() {
+        return studentProfileRepository.findAll().stream()
+                .map(StudentProfile::toDTO)
+                .collect(Collectors.toList());
     }
 }
