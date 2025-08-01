@@ -1,0 +1,18 @@
+<article>
+      <section class="listing-description">
+        <h2 class="listing-heading">{{ evento?.name }}</h2>
+        <p class="listing-location">{{ evento?.location }}</p>
+      </section>
+      <section class="listing-features">
+        <h2 class="section-heading">Sobre o evento</h2>
+        <ul>
+          <li>Descrição: {{ evento?.description }}</li>
+        </ul>
+      </section>
+      <section class="listing-apply">
+        <h2 class="section-heading">Inscrição</h2>
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
+          <button type="submit" class="primary">Inscrever-se</button>
+        </form>
+      </section>
+    </article>
