@@ -2,7 +2,8 @@ package br.edu.ufape.plataformaeventos.service;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
+import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
+import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 
@@ -66,7 +69,17 @@ public class EventService {
         return eventRepository.findByDateBetween(maxDate, miDate);
     }
 
+    public List<StudentProfileDTO> findParticipantsByName(Long EventId, String name) {
+        Event event = eventRepository.findById(EventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
 
+        Set<StudentProfile> participants = event.getParticipants();    
+
+        return participants.stream()
+            .filter(student -> student.getFullName().toLowerCase().contains(name.toLowerCase().trim()))
+        .map(StudentProfile::toDTO)
+        .collect(Collectors.toList());    
+    }
 
     
 

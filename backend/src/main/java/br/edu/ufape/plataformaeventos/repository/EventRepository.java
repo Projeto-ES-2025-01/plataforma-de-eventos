@@ -14,5 +14,4 @@ public interface EventRepository extends JpaRepository<Event, Long>,EventReposit
 
     List<Event> findByNameIgnoreCase(String name);
     
-    
 }

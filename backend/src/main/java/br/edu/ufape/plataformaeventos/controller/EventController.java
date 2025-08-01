@@ -2,6 +2,7 @@ package br.edu.ufape.plataformaeventos.controller;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
+import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.service.EventService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -67,5 +70,20 @@ public class EventController {
         @RequestParam(required = false) LocalDate maxDate) {
         return eventService.findByDateBetween(minDate, maxDate);
     }
+
+    @GetMapping("/search/participants/{eventId}")
+    public ResponseEntity<?> searchParticipantsByName(
+        @PathVariable Long eventId,
+        @RequestParam String name) {
+
+            try {
+                List<StudentProfileDTO> participants = eventService.findParticipantsByName(eventId, name);
+                return participants.isEmpty()
+                    ? ResponseEntity.noContent().build()
+                    : ResponseEntity.ok(participants);
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.notFound().build();
+            }
+        }
 
 }
