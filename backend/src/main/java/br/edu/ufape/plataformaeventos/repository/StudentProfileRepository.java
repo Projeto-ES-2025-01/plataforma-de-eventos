@@ -1,5 +1,8 @@
 package br.edu.ufape.plataformaeventos.repository;
 
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +14,8 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
     StudentProfile findByUserEmail(String email);
 
     StudentProfile findByCpf(String cpf);
+
+    @Override
+    List<StudentProfile> findAll();
 
 }
