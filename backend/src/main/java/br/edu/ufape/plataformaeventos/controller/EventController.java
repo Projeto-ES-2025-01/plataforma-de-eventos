@@ -42,7 +42,7 @@ public class EventController {
     @PutMapping("/update/{idEvent}")
     public ResponseEntity<Event> updateLocation(@PathVariable Long idEvent, 
      @Valid @RequestBody EventDTO eventDTO) {
-        Event updatedEvent = eventService.updateLocation(idEvent, eventDTO);
+        Event updatedEvent = eventService.updateEvent(idEvent, eventDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedEvent);
     }
 
