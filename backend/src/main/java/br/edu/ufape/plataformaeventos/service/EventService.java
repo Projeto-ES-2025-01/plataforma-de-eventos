@@ -100,6 +100,10 @@ public class EventService {
         return participant.toDTO();    
     }
 
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
+    }
+
     
 
 private void updateEventProperties(EventDTO eventDTO, Event entity) {

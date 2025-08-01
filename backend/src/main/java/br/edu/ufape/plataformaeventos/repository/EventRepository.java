@@ -13,5 +13,8 @@ import br.edu.ufape.plataformaeventos.model.Event;
 public interface EventRepository extends JpaRepository<Event, Long>,EventRepositoryCustom {
 
     List<Event> findByNameIgnoreCase(String name);
+
+    @Override
+    List<Event> findAll();
     
 }

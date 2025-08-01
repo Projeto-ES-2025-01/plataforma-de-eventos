@@ -98,4 +98,13 @@ public class EventController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/allEvents")
+    public ResponseEntity<List<Event>> getAllEvents() {
+        List<Event> events = eventService.getAllEvents();
+        if (events.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(events);
+    }
 }
