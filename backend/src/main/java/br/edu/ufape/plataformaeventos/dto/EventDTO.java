@@ -17,8 +17,8 @@ public class EventDTO {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ]+$", message = "Nome deve conter apenas letras")
     private String name;
 
-    @NotNull(message = "ID não pode ser nulo")
-    private Long id;
+    @NotNull(message = "IdOrginizer não pode ser nulo")
+    private Long idOrginizer;
 
     @NotNull(message = "Data é obrigatório")
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -75,15 +75,19 @@ public class EventDTO {
     public void setDescription(String description){
         this.description = description;
     }
+    
 
-    public Long getId() {
-        return id;
+    public Long getIdOrganizer() {
+        return idOrginizer;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdOrganizer(Long id) {
+        this.idOrginizer = id;
     }
 
+    
+
+    
     
 
 }

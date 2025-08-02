@@ -141,6 +141,12 @@ public class StudentProfile {
         this.events = events;
     }
 
+    public void addEvent(Event event) {
+        this.events.add(event);
+        
+    }
+    
+
     public StudentProfileDTO toDTO() {
     StudentProfileDTO dto = new StudentProfileDTO();
     dto.setFullName(this.getFullName());

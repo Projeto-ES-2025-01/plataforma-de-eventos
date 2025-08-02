@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.edu.ufape.plataformaeventos.dto.EventDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -128,6 +129,10 @@ public class Event {
         this.organizer = organizer;
     }
 
+    public long getOrgnizerId(){
+        return organizer.getId();
+    }
+
     public void setParticipants(Set<StudentProfile> participants) {
         this.participants = participants;
     }
@@ -142,4 +147,16 @@ public class Event {
         this.participants.remove(participant);
         participant.getEvents().remove(this);
     }
+
+    public EventDTO eventToEventDTO() {
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setName(this.name);
+        eventDTO.setDate(this.date);
+        eventDTO.setTime(this.time);
+        eventDTO.setLocation(this.location);
+        eventDTO.setDescription(this.description);
+        eventDTO.setIdOrganizer(this.organizer.getId());
+        return eventDTO;
+    }
+
 }
