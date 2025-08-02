@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EventoService } from '../../evento-service';
-import { AuthService } from '../../app/auth/auth';
-import { EventoInterface } from '../../app/eventoInterface';
+import { EventoService } from '../evento-service';
+import { AuthService } from '../auth/auth';
+import { EventoInterface } from '../eventoInterface';
 
 @Component({
   standalone: true,
