@@ -1,20 +1,27 @@
 package br.edu.ufape.plataformaeventos.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ufape.plataformaeventos.dto.EventDTO;
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
+import br.edu.ufape.plataformaeventos.model.Event;
+import br.edu.ufape.plataformaeventos.model.StudentProfile;
+import br.edu.ufape.plataformaeventos.service.EventService;
 import br.edu.ufape.plataformaeventos.service.StudentProfileService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -27,7 +34,8 @@ public class StudentProfileController {
     
     @Autowired
     StudentProfileService studentProfileService;
-
+    @Autowired
+    EventService eventService;
 
 
     @GetMapping("/getProfile/{email}")
@@ -40,14 +48,14 @@ public class StudentProfileController {
         
     }
 
-    @PostMapping("/editProfile")
-    public ResponseEntity<Void> editStudentProfile(@RequestBody @Valid StudentProfileDTO studentProfileDTO){
+    @PutMapping("/editProfile")
+    public ResponseEntity<String> editStudentProfile(@RequestBody @Valid StudentProfileDTO studentProfileDTO){
         if (studentProfileDTO.getCpf() == null || studentProfileDTO.getCpf().isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         else {
             studentProfileService.updateStudentProfile(studentProfileDTO);
-            return ResponseEntity.status(HttpStatus.OK).build();}
+            return ResponseEntity.status(HttpStatus.OK).body("Usuario editado com sucesso.");}
     }
 
     @DeleteMapping("/deleteProfile/{email}")
@@ -61,6 +69,30 @@ public class StudentProfileController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @Transactional
+    @PostMapping("/joinEvent/{eventId}")
+    public ResponseEntity<String> joinEvent(@PathVariable long eventId, @RequestBody StudentProfileDTO studentProfileDTO){
+        Event event = eventService.findById(eventId);
+        if(event==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+        }
+        StudentProfile participant = studentProfileService.findByCPF(studentProfileDTO.getCpf());
+        if(participant==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+        }
+        studentProfileService.addParticipant(event,participant);
+        return ResponseEntity.status(HttpStatus.OK).body("Participante adicionado ao evento com sucesso");
+        
+    }
+
+    @GetMapping("/getStudentEvents/{email}")
+        ResponseEntity<Set<EventDTO>> getEvents(@PathVariable String email){
+            Set<EventDTO> events = studentProfileService.getEventsOfStudent(email);
+            
+            return ResponseEntity.status(HttpStatus.OK).body(events);
+        }
+    
 
     @GetMapping("/allProfiles")
     public ResponseEntity<List<StudentProfileDTO>> getAllStudentProfiles() {

@@ -39,6 +39,7 @@ public class EventService {
     }
 
 
+
     public Event updateEvent(Long idEvent, EventDTO eventDTO) {
         Event entity = eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
@@ -113,11 +114,17 @@ private void updateEventProperties(EventDTO eventDTO, Event entity) {
     entity.setLocation(eventDTO.getLocation());
     entity.setDescription(eventDTO.getDescription());
 
-    OrganizerProfile organizer = organizerProfileRepository.findById(eventDTO.getId())
+    OrganizerProfile organizer = organizerProfileRepository.findById(eventDTO.getIdOrganizer())
         .orElseThrow(() -> new RuntimeException("Organizador não encontrado"));
 
     entity.setOrganizer(organizer);
 }
+
+    public Event findById(Long eventId) {
+        return eventRepository.findById(eventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
     
    
+}
+
 }
