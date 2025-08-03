@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
 import jakarta.persistence.Column;
@@ -53,6 +55,7 @@ public class StudentProfile {
     private User user;
 
     @ManyToMany(mappedBy = "participants")
+    @JsonBackReference
     private Set<Event> events = new HashSet<>();;
 
     public StudentProfile() {
