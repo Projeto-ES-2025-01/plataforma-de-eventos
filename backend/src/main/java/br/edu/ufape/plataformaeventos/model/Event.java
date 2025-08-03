@@ -55,6 +55,7 @@ public class Event {
         joinColumns = @JoinColumn(name = "event_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonBackReference
     private Set<StudentProfile> participants = new HashSet<>();
 
     public Event() {
