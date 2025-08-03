@@ -105,6 +105,19 @@ public class EventService {
         return eventRepository.findAll();
     }
 
+    public List<StudentProfileDTO> getAllParticipantByEvent (Long eventId){
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+
+        Set<StudentProfile> participants = event.getParticipants();
+        if (participants == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há inscritos.");
+        }
+        return participants.stream()
+        .map(StudentProfile::toDTO)
+        .collect(Collectors.toList());
+    }
+
     
 
 private void updateEventProperties(EventDTO eventDTO, Event entity) {

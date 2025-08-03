@@ -106,4 +106,16 @@ public class EventController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(events);
     }
+
+    @GetMapping("/AllParticipants/{idEvent}")
+    public ResponseEntity<List<StudentProfileDTO>> getAllParticipantByEvent(@PathVariable Long idEvent) {
+        try {
+            List<StudentProfileDTO> participants = eventService.getAllParticipantByEvent(idEvent);
+            return participants.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(participants);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
