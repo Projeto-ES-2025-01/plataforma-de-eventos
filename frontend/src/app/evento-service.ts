@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EventoInterface } from './eventoInterface';
+import { CriarEventoInterface, EventoInterface } from './eventoInterface';
+import { StudentProfileDTO } from './auth/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class EventoService {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ name: searchTerm }) // Send the search term as JSON
+    body: JSON.stringify({ name: searchTerm })
   });
 
   if (!response.ok) {
@@ -36,13 +37,38 @@ export class EventoService {
     return data.json() ?? {};
   }
 
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log(`Application submitted for ${firstName} ${lastName} at ${email}`);
+  async getEstudanteByEmail(email: string): Promise<StudentProfileDTO | undefined> {
+    const data = await fetch(`${this.url}/student/getProfile/${email}`);
+    return data.json() ?? {};
   }
 
-  async addEvento(EventoInterface: EventoInterface) {
+  async submitApplication( eventoId: number, StudentProfileDTO: StudentProfileDTO): Promise<any> {
+    const response = await fetch(`${this.url}/student/joinEvent/${eventoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(StudentProfileDTO)
+  });
+    const data = await response.json();
+    console.log(data);
+  }
+
+  async addEvento(CriarEventoInterface: CriarEventoInterface) : Promise<any> {
     const response = await fetch(this.url + '/event/create', {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(CriarEventoInterface)
+  });
+    const data = await response.json();
+    console.log(data);
+  }
+
+  async updateEvento(EventoInterface: EventoInterface, eventoId: number) {
+    const response = await fetch(`${this.url}/event/update/${eventoId}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },

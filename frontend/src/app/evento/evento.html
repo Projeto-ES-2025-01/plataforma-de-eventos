@@ -1,10 +1,14 @@
 <section class="event-card">
   <h2 class="event-title">{{ evento.name }}</h2>
-  <p class="event-location">
-    {{ evento.location }}
-  </p>
-  <p class="event-time">
-    {{ evento.date }}
-  </p>
-  <a [routerLink]="['/details', evento.id]">Learn More</a>
+  <p class="event-location">{{ evento.location }}</p>
+  <p class="event-date">{{ evento.date }}</p>
+  <p class="event-time">{{ evento.time }}</p>
+
+  <a *ngIf="hasRole('STUDENT')" [routerLink]="['/details', evento.id]">
+    Saber mais
+  </a>
+
+  <a *ngIf="hasRole('ORGANIZER')" [routerLink]="['/editar-evento', evento.id]">
+    Ver Evento
+  </a>
 </section>
