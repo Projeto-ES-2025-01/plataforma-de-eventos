@@ -1,0 +1,33 @@
+<h2>Editar Perfil</h2>
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <label>Nome completo:
+    <input type="text" formControlName="fullName">
+  </label>
+  <label>CPF:
+    <input type="text" formControlName="cpf">
+  </label>
+  <label>Data de nascimento:
+    <input type="date" formControlName="birthDate">
+  </label>
+  <label>Telefone:
+    <input type="text" formControlName="phoneNumber">
+  </label>
+  <label>Curso</label>
+      <select formControlName="degreeProgram" required>
+        <option value="">Selecione</option>
+        <option value="CIENCIA_DA_COMPUTACAO">Ciência da Computação</option>
+        <option value="ADMNISTRACAO">Administração</option>
+        <option value="VETERINARIA">Medicina Veterinária</option>
+        <option value="ZOOTECNIA">Zootecnia</option>
+        <option value="ENGENHARIA_DE_ALIMENTOS">Engenharia de Alimentos</option>
+        <option value="LETRAS">Letras</option>
+        <option value="AGRONOMIA">Agronomia</option>
+        <option value="PEDAGOGIA">Pedagogia</option>
+        <option value="CONTABILIDADE">Ciências Contábeis</option>
+      </select>
+  <label>Período atual:
+    <input type="number" formControlName="currentPeriod">
+  </label>
+  <button type="submit" [disabled]="studentForm.invalid">Salvar</button>
+  <button type="button" class="danger" (click)="onDelete()">Deletar Perfil</button>
+</form>

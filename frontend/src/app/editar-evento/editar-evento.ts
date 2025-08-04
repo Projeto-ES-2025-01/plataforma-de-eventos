@@ -90,4 +90,17 @@ export class EditarEventoComponent implements OnInit {
       alert('Formulário inválido!');
     }
   }
+
+  async onDelete() {
+    if (confirm('Tem certeza que deseja deletar este evento? Esta ação é irreversível.')) {
+      try {
+        await this.eventoService.deleteEvento(this.eventoId);
+        alert('Evento deletado com sucesso!');
+        this.router.navigate(['/home']);
+      } catch (error) {
+        console.error('Erro ao deletar evento:', error);
+        alert('Erro ao deletar evento');
+      }
+    }
+  }
 }
