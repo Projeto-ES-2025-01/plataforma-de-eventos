@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventoService } from '../evento-service';
 import { EventoInterface } from '../eventoInterface';
 import { AuthService } from '../auth/auth';
@@ -9,7 +9,7 @@ import { ReactiveFormsModule,} from '@angular/forms';
 @Component({
   selector: 'app-details',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './ver-evento.html',
   styleUrls: ['./ver-evento.css']
 })
