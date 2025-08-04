@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EventoService } from '../evento-service';
 import { EventoInterface } from '../eventoInterface';
 import { AuthService } from '../auth/auth';
@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth';
 @Component({
   standalone: true,
   selector: 'app-editar-evento',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './editar-evento.html',
   styleUrl: './editar-evento.css'
 })

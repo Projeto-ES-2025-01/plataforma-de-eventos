@@ -1,1 +1,28 @@
-<p>ver-inscricoes works!</p>
+<h2>Participantes do Evento</h2>
+
+<ul>
+  <li *ngFor="let participante of participantes">
+    Nome: {{ participante.fullName }} - CPF: {{ participante.cpf }}
+  </li>
+</ul>
+
+<div class="filtros">
+  <form>
+    <input type="text" placeholder="Filtrar por cpf" #filter> 
+    <button class="primary" type="button" (click)="filterResultsCpf(filter.value)">Search</button>
+  </form>
+  <ul>
+  <li *ngFor="let participante of filteredParticipantesCpf">
+    {{ participante.fullName }} - CPF: {{ participante.cpf }}
+  </li>
+</ul>
+  <form>
+    <input type="text" placeholder="Filtrar por nome" #filter> 
+    <button class="primary" type="button" (click)="filterResultsName(filter.value)">Search</button>
+  </form>
+  <ul>
+  <li *ngFor="let participante of filteredParticipantesName">
+    {{ participante.fullName }} - CPF: {{ participante.cpf }}
+  </li>
+</ul>
+</div>

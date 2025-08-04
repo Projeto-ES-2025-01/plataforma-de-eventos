@@ -37,6 +37,11 @@ export class EventoService {
     return data.json() ?? {};
   }
 
+  async getAllStudents(id: number): Promise<StudentProfileDTO[]> {
+    const data = await fetch(`${this.url}/event/AllParticipants/${id}`);
+    return data.json() ?? []; // Ensure it returns an empty array if no data is found
+}
+
   async getEstudanteByEmail(email: string): Promise<StudentProfileDTO | undefined> {
     const data = await fetch(`${this.url}/student/getProfile/${email}`);
     return data.json() ?? {};
