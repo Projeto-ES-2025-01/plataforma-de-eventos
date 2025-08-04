@@ -1,28 +1,15 @@
 <h2>Participantes do Evento</h2>
 
+<div class="filtros">
+  <form>
+    <input type="text" placeholder="Filtrar por nome" [(ngModel)]="filterName" name="nameFilter" />
+    <input type="text" placeholder="Filtrar por CPF" [(ngModel)]="filterCpf" name="cpfFilter" />
+    <button class="primary" type="button" (click)="filtrar()">Buscar</button>
+  </form>
+</div>
+
 <ul>
-  <li *ngFor="let participante of participantes">
+  <li *ngFor="let participante of participantesFiltrados">
     Nome: {{ participante.fullName }} - CPF: {{ participante.cpf }}
   </li>
 </ul>
-
-<div class="filtros">
-  <form>
-    <input type="text" placeholder="Filtrar por cpf" #filter> 
-    <button class="primary" type="button" (click)="filterResultsCpf(filter.value)">Search</button>
-  </form>
-  <ul>
-  <li *ngFor="let participante of filteredParticipantesCpf">
-    {{ participante.fullName }} - CPF: {{ participante.cpf }}
-  </li>
-</ul>
-  <form>
-    <input type="text" placeholder="Filtrar por nome" #filter> 
-    <button class="primary" type="button" (click)="filterResultsName(filter.value)">Search</button>
-  </form>
-  <ul>
-  <li *ngFor="let participante of filteredParticipantesName">
-    {{ participante.fullName }} - CPF: {{ participante.cpf }}
-  </li>
-</ul>
-</div>
