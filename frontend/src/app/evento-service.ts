@@ -82,4 +82,14 @@ export class EventoService {
     const data = await response.json();
     console.log(data);
   }
+
+  async deleteEvento(eventoId: number): Promise<void> {
+    const response = await fetch(`${this.url}/event/delete/${eventoId}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao deletar evento');
+    }
+  }
 }

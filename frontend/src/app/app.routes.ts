@@ -10,6 +10,7 @@ import { CriarEventoComponent } from './criar-evento/criar-evento';
 import { eventDetails } from './ver-evento/ver-evento';
 import { EditarEventoComponent } from './editar-evento/editar-evento';
 import { VerInscricaoComponent } from './ver-inscricoes/ver-inscricoes';
+import { EditarStudentComponent } from './editar-perfil/editar-perfil';
 
 export const routes: Routes = [
     { 
@@ -33,6 +34,10 @@ export const routes: Routes = [
     { 
         path: 'criar-evento', component: CriarEventoComponent, canActivate: [authGuard], title: 'Criar evento',
         data: { role: 'ORGANIZER' }
+    },
+    { 
+        path: 'editar-estudante', component: EditarStudentComponent, canActivate: [authGuard], title: 'Editar perfil',
+        data: { role: 'STUDENT' }
     },
     { 
         path: 'editar-evento/:id', component: EditarEventoComponent, canActivate: [authGuard], title: 'Editar evento',

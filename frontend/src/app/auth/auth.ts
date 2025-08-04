@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StudentRegisterRequest, User, UserDTO } from './user';
+import { StudentProfileDTO, StudentRegisterRequest, User, UserDTO } from './user';
 import { jwtDecode} from 'jwt-decode';
 
 @Injectable({
@@ -64,6 +64,43 @@ export class AuthService {
     return await response.json();
   } catch (error) {
     console.error('Erro no registro do estudante:', error);
+    return null;
+  }
+}
+
+async updateStudent(request: StudentProfileDTO): Promise<any> {
+  try {
+    const response = await fetch('http://localhost:8080/student/editProfile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request)
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao atualizar estudante');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro no atualizar do estudante:', error);
+    return null;
+  }
+}
+
+async deleteStudent(email: string): Promise<any> {
+  try {
+    const response = await fetch(`http://localhost:8080/student/deleteProfile/${email}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao deletar estudante');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Erro ao deletar estudante:', error);
     return null;
   }
 }

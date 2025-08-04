@@ -4,12 +4,13 @@ import { EventoComponent } from '../evento/evento';
 import { EventoService } from '../evento-service';
 import { EventoInterface } from '../eventoInterface';
 import { AuthService } from '../auth/auth';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, EventoComponent],
+  imports: [CommonModule, EventoComponent, RouterModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
