@@ -89,6 +89,7 @@ public class StudentProfileService {
             throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
         }
         studentProfileRepository.delete(studentProfile);
+        userRepository.deleteByEmail(email);
     }
 
     public StudentProfile findByCPF(String cpf){
