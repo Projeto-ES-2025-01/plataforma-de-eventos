@@ -1,56 +1,110 @@
-/* Estilização geral */
-section {
-  margin: 2rem auto;
+/* Estilo da seção de lista de eventos para estudantes */
+.event-list {
   max-width: 800px;
-  padding: 1.5rem;
-  background-color: #f9f9f9;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Estilização do formulário */
-form {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+.event-list h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
 }
 
-input[type="text"] {
-  padding: 0.6rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 250px;
-  transition: border-color 0.2s ease-in-out;
-}
-
-input[type="text"]:focus {
-  border-color: #4a90e2;
-  outline: none;
-}
-
-/* Botão */
-button.primary {
-  background-color: #4a90e2;
-  color: white;
+.event-list button {
+  margin-bottom: 1rem;
   padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #3498db;
+  color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.3s ease;
+}
+
+.event-list button:hover {
+  background-color: #2980b9;
+}
+
+.event-list form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.event-list input {
+  padding: 0.7rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  flex: 1 1 200px;
+  background-color: #f9f9f9;
+}
+
+button.primary {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 button.primary:hover {
-  background-color: #3b7bcc;
+  background-color: #27ae60;
 }
 
-/* Resultados */
-.results {
+/* Resultados para estudantes */
+.resultsstudents {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1.2rem;
+}
+
+/* Resultados para organizadores */
+.resultsorganizer {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.resultsorganizer h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+app-evento {
+  display: block;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: rgb(238, 234, 234);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .event-list form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .event-list input,
+  .event-list button {
+    width: 100%;
+  }
 }

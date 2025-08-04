@@ -16,14 +16,14 @@
 </form>
 </section>
 
-<section class="results" *ngIf="hasRole('STUDENT')">
+<section class="resultsstudents" *ngIf="hasRole('STUDENT')">
   <app-evento *ngFor="let EventoComponent of filteredEventoList" 
               [evento]="EventoComponent">
   </app-evento>
 </section>
 
-<section class="results" *ngIf="hasRole('ORGANIZER')">
-  <h2>Seus eventos</h2>
+<section class="resultsorganizer" *ngIf="hasRole('ORGANIZER')">
+  <h2>Seus eventos</h2><br>
   <app-evento *ngFor="let EventoComponent of myEventList" 
               [evento]="EventoComponent">
   </app-evento>
