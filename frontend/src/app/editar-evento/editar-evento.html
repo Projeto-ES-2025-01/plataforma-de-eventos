@@ -22,8 +22,9 @@
   </label>
   <button type="submit" [disabled]="eventoForm.invalid">Salvar Alterações</button>
   <button type="button" class="danger" (click)="onDelete()">Deletar Evento</button>
-</form>
-<a routerLink="/home">Cancelar</a>
-<button class="secondary" [routerLink]="['/editar-evento',eventoId,'ver-inscricao']">
+  <button class="secondary" [routerLink]="['/editar-evento',eventoId,'ver-inscricao']">
       Ver inscrições
   </button>
+</form>
+<a routerLink="/home">Cancelar</a>
+
