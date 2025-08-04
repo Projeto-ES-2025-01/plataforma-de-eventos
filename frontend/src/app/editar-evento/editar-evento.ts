@@ -33,7 +33,7 @@ export class EditarEventoComponent implements OnInit {
       location: ['', Validators.required],
       time: ['', Validators.required],
       date: ['', Validators.required],
-      description: ['', Validators.required, Validators.minLength(50)],
+      description: ['', Validators.required],
     });
 
     this.carregarEvento();
@@ -56,7 +56,6 @@ export class EditarEventoComponent implements OnInit {
     });
   } catch (error) {
     console.error('Erro ao carregar evento:', error);
-    alert('Erro ao carregar evento');
   }
   }
 

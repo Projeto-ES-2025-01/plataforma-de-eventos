@@ -1,7 +1,7 @@
 <section class="event-card">
   <h2 class="event-title">{{ evento.name }}</h2>
   <p class="event-location">{{ evento.location }}</p>
-  <p class="event-date">{{ evento.date }}</p>
+  <p class="event-date">{{ evento.date  | date: 'dd/MM/yyyy' }}</p>
   <p class="event-time">{{ evento.time }}</p>
 
   <a *ngIf="hasRole('STUDENT')" [routerLink]="['/details', evento.id]">

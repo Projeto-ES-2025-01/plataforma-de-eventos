@@ -3,9 +3,17 @@
   Editar Perfil
 </button>
   <form>
-    <input type="text" placeholder="Filtrar por nome" #filter> 
-    <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
-  </form>
+  <input type="text" placeholder="Filtrar por nome" #filterText>
+  <input type="date" #startDate>
+  <input type="date" #endDate>
+
+  <button
+    class="primary"
+    type="button"
+    (click)="filterResults(filterText.value, startDate.value, endDate.value)">
+    Filtrar
+  </button>
+</form>
 </section>
 
 <section class="results" *ngIf="hasRole('STUDENT')">

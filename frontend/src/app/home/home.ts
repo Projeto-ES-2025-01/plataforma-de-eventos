@@ -45,12 +45,19 @@ export class HomeComponent {
   return this.authService.hasRole(role);
   }
 
-  filterResults(text: string) {
-    if (!text) this.filteredEventoList = this.EventoList;
+  filterResults(text: string, startDate?: string, endDate?: string) {
+  this.filteredEventoList = this.EventoList.filter(evento => {
+    const matchesText = !text || evento?.name.toLowerCase().includes(text.toLowerCase());
 
-    this.filteredEventoList = this.EventoList.filter(
-      evento => evento?.name.toLowerCase().includes(text.toLowerCase())
-    );
-  }
+    const eventoDate = new Date(evento.date);
+    const start = startDate ? new Date(startDate) : null;
+    const end = endDate ? new Date(endDate) : null;
+
+    const matchesStart = !start || eventoDate >= start;
+    const matchesEnd = !end || eventoDate <= end;
+
+    return matchesText && matchesStart && matchesEnd;
+  });
+}
 
 }
