@@ -130,7 +130,7 @@ public class Event {
         this.organizer = organizer;
     }
 
-    public long getOrgnizerId(){
+    public long getIdOrganizer(){
         return organizer.getId();
     }
 
