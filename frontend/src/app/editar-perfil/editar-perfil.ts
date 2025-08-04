@@ -80,11 +80,13 @@ export class EditarStudentComponent implements OnInit {
             this.router.navigate(['/login']);
           } else {
             alert('Erro ao deletar perfil');
+            this.router.navigate(['/login']);
           }
         })
         .catch(err => {
           console.error(err);
           alert('Erro ao deletar perfil');
+          this.router.navigate(['/login']);
         });
     }
   }

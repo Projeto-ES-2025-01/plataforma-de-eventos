@@ -56,7 +56,6 @@ export class EditarEventoComponent implements OnInit {
     });
   } catch (error) {
     console.error('Erro ao carregar evento:', error);
-    alert('Erro ao carregar evento');
   }
   }
 

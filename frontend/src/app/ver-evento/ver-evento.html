@@ -2,6 +2,8 @@
   <section class="listing-description">
     <h2 class="listing-heading">{{ evento?.name }}</h2>
     <p class="listing-location">{{ evento?.location }}</p>
+    <p class="listing-date">{{ evento?.date | date: 'dd/MM/yyyy' }}</p>
+    <p class="listing-time">{{ evento?.time }}</p>
   </section>
 
   <section class="listing-features">

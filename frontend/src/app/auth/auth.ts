@@ -97,7 +97,6 @@ async deleteStudent(email: string): Promise<any> {
     if (!response.ok) {
       throw new Error('Erro ao deletar estudante');
     }
-
     return await response.json();
   } catch (error) {
     console.error('Erro ao deletar estudante:', error);

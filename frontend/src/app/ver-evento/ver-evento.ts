@@ -48,7 +48,6 @@ export class eventDetails {
         })
         .catch((err) => {
           console.error(err);
-          alert('Erro ao tentar se inscrever.');
         });
     })
     .catch((err) => {
