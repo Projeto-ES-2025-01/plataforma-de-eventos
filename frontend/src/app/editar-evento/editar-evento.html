@@ -17,8 +17,8 @@
     <input type="date" formControlName="date" />
   </label>
   <label>
-    Descrição:
-    <textarea formControlName="description"></textarea>
+    Descrição (min. 50 caracteres):
+    <textarea formControlName="description "></textarea>
   </label>
   <button type="submit" [disabled]="eventoForm.invalid">Salvar Alterações</button>
   <button type="button" class="danger" (click)="onDelete()">Deletar Evento</button>

@@ -5,7 +5,7 @@
   <input type="date" formControlName="date" />
   <label>Hora:</label>
   <input type="time" formControlName="time" />  
-  <textarea formControlName="description" placeholder="Descrição"></textarea>
+  <textarea formControlName="description" placeholder="Descrição (min. 50 caracteres)"></textarea>
   <button type="submit" [disabled]="eventoForm.invalid">Criar Evento</button>
   <button type="button" routerLink="/home">Cancelar</button>
 </form>
