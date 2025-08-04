@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventoService } from '../evento-service';
 import { AuthService } from '../auth/auth';
-import { EventoInterface } from '../eventoInterface';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -18,7 +18,8 @@ export class CriarEventoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private eventoService: EventoService,
-    private authService: AuthService 
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,22 +40,22 @@ export class CriarEventoComponent implements OnInit {
     const [datePart] = date.split('T');
     const [year, month, day] = datePart.split('-');
     const dateTimeString = `${day}/${month}/${year}`;
-    const dateTime = new Date(dateTimeString);
     const userId = parseInt(this.authService.getUserId() || '0', 10);
 
     const eventoFinal = {
-      id: userId,
+      idOrganizer: userId,
+      //id: 0,
       name,
       location,
       date: dateTimeString,
-      time: dateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time,
       description
     };
 
     this.eventoService.addEvento(eventoFinal)
       .then(() => {
         alert('Evento criado com sucesso!');
-        this.eventoForm.reset();
+        this.router.navigate(['/home']);
       })
       .catch(error => {
         console.error('Erro ao criar evento:', error);

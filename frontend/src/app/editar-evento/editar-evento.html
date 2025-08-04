@@ -1,0 +1,25 @@
+<h2>Editar Evento</h2>
+<form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
+  <label>
+    Nome:
+    <input type="text" formControlName="name" />
+  </label>
+  <label>
+    Local:
+    <input type="text" formControlName="location" />
+  </label>
+  <label>
+    Horário:
+    <input type="time" formControlName="time" />
+  </label>
+  <label>
+    Data:
+    <input type="date" formControlName="date" />
+  </label>
+  <label>
+    Descrição:
+    <textarea formControlName="description"></textarea>
+  </label>
+  <button type="submit" [disabled]="eventoForm.invalid">Salvar Alterações</button>
+</form>
+<a routerLink="/home">Cancelar</a>

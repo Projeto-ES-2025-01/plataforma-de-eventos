@@ -1,10 +1,19 @@
-<section>
-      <form>
-        <input type="text" placeholder="Filtrar por nome" #filter> 
-        <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
-      </form>
-    </section>
-    <section class="results">
-      <app-evento *ngFor="let EventoComponent of filteredEventoList" 
-       [evento]="EventoComponent"></app-evento>
-    </section>
+<section *ngIf="hasRole('STUDENT')" class="event-list">
+  <form>
+    <input type="text" placeholder="Filtrar por nome" #filter> 
+    <button class="primary" type="button" (click)="filterResults(filter.value)">Search</button>
+  </form>
+</section>
+
+<section class="results" *ngIf="hasRole('STUDENT')">
+  <app-evento *ngFor="let EventoComponent of filteredEventoList" 
+              [evento]="EventoComponent">
+  </app-evento>
+</section>
+
+<section class="results" *ngIf="hasRole('ORGANIZER')">
+  <h2>Seus eventos</h2>
+  <app-evento *ngFor="let EventoComponent of myEventList" 
+              [evento]="EventoComponent">
+  </app-evento>
+</section>

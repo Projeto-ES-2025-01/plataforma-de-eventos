@@ -101,6 +101,19 @@ export class AuthService {
     }
   }
 
+  getUserEmail(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const decoded: any = jwtDecode(token);
+      console.log('Decoded token:', decoded.sub);
+      return decoded.sub || null; // depende de como o backend codifica o email
+    } catch (e) {
+      console.error('Erro ao decodificar token:', e);
+      return null;
+    }
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
