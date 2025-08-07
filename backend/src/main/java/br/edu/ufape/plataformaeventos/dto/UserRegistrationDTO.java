@@ -1,8 +1,13 @@
 package br.edu.ufape.plataformaeventos.dto;
 
+import jakarta.validation.Valid;
+
 public class UserRegistrationDTO {
     
+    @Valid
     private UserDTO userDTO;
+
+    @Valid
     private StudentProfileDTO studentProfileDTO;
 
     public UserDTO getUserDTO() {
