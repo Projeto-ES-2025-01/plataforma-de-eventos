@@ -5,6 +5,8 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -14,13 +16,15 @@ public class EventDTO {
 
     @NotBlank(message = "Nome não pode ser vazio")
     @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ]+$", message = "Nome deve conter apenas letras")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\\s\\-\\.,_@#&]+$", message = "Nome contém caracteres inválidos")
     private String name;
 
     @NotNull(message = "IdOrganizer não pode ser nulo")
+    @Min(message = "IdOrganizer deve ser maior que 0", value = 1)
     private Long idOrganizer;
 
     @NotNull(message = "Data é obrigatório")
+    @FutureOrPresent(message = "A data deve ser hoje ou no futuro")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
@@ -29,6 +33,8 @@ public class EventDTO {
     private LocalTime time;
 
     @NotBlank(message = "Localização é obrigatório")
+    @Pattern( regexp = "^(?=.*[A-Za-z]).+$", message = "Deve conter pelo menos uma letra")
+    @Size(min = 2,message = "localizacao deve conter no minimo 2 caracteres")
     private String location;
 
     @NotBlank(message = "Descrição não pode ser vazio")
