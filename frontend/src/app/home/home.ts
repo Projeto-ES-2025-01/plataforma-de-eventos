@@ -33,7 +33,7 @@ export class HomeComponent {
       this.EventoList = EventoList;
 
       if (this.hasRole('ORGANIZER')) {
-        console.log('Usuário é um organizador' + this.authService.getUserId());
+        console.log('Usuário é um organizador: ' + this.authService.getUserId());
         this.myEventList = EventoList.filter(evento => evento?.idOrganizer === parseInt(this.authService.getUserId() || '0', 10));
       } else {
         this.filteredEventoList = EventoList;

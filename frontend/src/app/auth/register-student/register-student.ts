@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth';
 import { CommonModule } from '@angular/common';
@@ -23,9 +23,9 @@ export class RegisterStudentComponent {
     confirmPassword: ['', [Validators.required]],
     
     fullName: ['', [Validators.required]],
-    cpf: ['', [Validators.required]],
-    birthDate: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
+    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    birthDate: ['', [Validators.required, this.datePastValidator]],
+    phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
     degreeProgram: ['', [Validators.required]],
     currentPeriod: [1, [Validators.required, Validators.min(1)]]
   }, { validators: this.passwordMatchValidator });
@@ -34,6 +34,12 @@ export class RegisterStudentComponent {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+
+  datePastValidator(control: AbstractControl) {
+    const hoje = new Date();
+    const valor = new Date(control.value);
+    return valor > hoje ? { datafutura: true } : null;
   }
 
   onSubmit() {

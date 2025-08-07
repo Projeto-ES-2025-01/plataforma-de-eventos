@@ -29,3 +29,19 @@ button.createevent {
 button.createevent:hover {
   background-color: #3b7bcc;
 }
+
+button.editprofile {
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  margin-left: auto; /* alinha à direita se dentro de flex */
+}
+
+button.editprofile:hover {
+  background-color: #3b7bcc;
+}

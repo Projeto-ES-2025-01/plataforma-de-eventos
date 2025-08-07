@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventoService } from '../evento-service';
 import { AuthService } from '../auth/auth';
 import { Router, RouterModule } from '@angular/router';
@@ -27,10 +27,16 @@ export class CriarEventoComponent implements OnInit {
       name: ['', Validators.required],
       location: ['', Validators.required],
       time: ['', Validators.required],
-      date: ['', Validators.required],
-      description: ['', Validators.required],
+      date: ['', [Validators.required, this.dateFutureValidator]],
+      description: ['', [Validators.required, Validators.minLength(50)]],
     });
   }
+
+  dateFutureValidator(control: AbstractControl) {
+  const hoje = new Date();
+  const valor = new Date(control.value);
+  return valor < hoje ? { datapassada: true } : null;
+}
 
   onSubmit(): void {
   if (this.eventoForm.valid) {
