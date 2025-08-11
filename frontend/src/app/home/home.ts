@@ -44,6 +44,7 @@ export class HomeComponent {
   hasRole(role: string): boolean {
   return this.authService.hasRole(role);
   }
+  //teste do .yml
 
   filterResults(text: string, startDate?: string, endDate?: string) {
   this.filteredEventoList = this.EventoList.filter(evento => {
@@ -59,5 +60,4 @@ export class HomeComponent {
     return matchesText && matchesStart && matchesEnd;
   });
 }
-
 }
