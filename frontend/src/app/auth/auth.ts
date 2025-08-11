@@ -12,7 +12,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<boolean> {
     console.log('Tentando fazer login');
     try {
-      const response = await fetch(this.apiUrl + '/login', {
+      const response = await fetch(this.apiUrl + '/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -38,7 +38,7 @@ export class AuthService {
   async register(newUser: UserDTO): Promise<User | null> {
     console.log('Tentando fazer register');
     try {
-      const response = await fetch(this.apiUrl + '/register/organizer', {
+      const response = await fetch(this.apiUrl + '/auth/register/organizer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser)
@@ -52,7 +52,7 @@ export class AuthService {
 
   async registerStudent(request: StudentRegisterRequest): Promise<any> {
   try {
-    const response = await fetch(this.apiUrl + '/register/student', {
+    const response = await fetch(this.apiUrl + '/auth/register/student', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request)
