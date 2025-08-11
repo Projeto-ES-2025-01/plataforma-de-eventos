@@ -1,7 +1,8 @@
 <main>
       <header class="brand-name">
           <button class="logout" (click)="logout()" *ngIf="isAuthenticated()">Logout</button>
-          <button class="createevent" (click)="createEvent()" *ngIf="hasOrganizerRole()">Criar Evento</button>
+          <button class="createevent" (click)="createEvent()" *ngIf="hasRole('ORGANIZER')">Criar Evento</button>
+          <button class="editprofile" (click)="editProfile()" *ngIf="hasRole('STUDENT')">Editar Perfil</button>
       </header>
       <section class="content">
         <router-outlet></router-outlet>

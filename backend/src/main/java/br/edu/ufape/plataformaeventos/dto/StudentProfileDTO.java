@@ -16,16 +16,16 @@ public class StudentProfileDTO {
     private String fullName;
 
     @NotBlank(message = "CPF é obrigatório")
-    @Pattern(regexp = "^(?=.*[0-9])[0-9\\p{Punct}]+$", message = "CPF deve conter apenas números e símbolos, com pelo menos um número")
+    @Pattern(regexp = "^\\d{11}$", message = "CPF deve conter exatamente 11 números")
     private String cpf;
-
+    
     @NotNull(message = "Data de nascimento é obrigatória")
     @Past(message = "Data de nascimento deve ser no passado")
     private LocalDate birthDate;
 
     @NotBlank(message = "Número de telefone é obrigatório")
-    @Pattern(regexp = "^(?=.*[0-9])[0-9\\p{Punct}]+$", message = "Numero deve conter apenas números e símbolos, com pelo menos um número")
-    @Size(min =10,message = "Numero deve conter ao menos 11 caracteres")
+    @Pattern(regexp = "^\\d{11}$", message = "CPF deve conter exatamente 11 números")
+    @Size(min =11,message = "Numero deve conter 11 caracteres")
     private String phoneNumber;
 
     @NotNull(message = "Curso é obrigatório")

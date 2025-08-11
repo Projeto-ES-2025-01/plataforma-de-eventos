@@ -12,13 +12,13 @@
       <label>Nome de Usuário</label>
       <input type="text" formControlName="name" placeholder="Nome de usuário" required />
       <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
-        Nome é obrigatório.
+        Nome de usuário inválido.
       </div>
 
       <label>Senha</label>
       <input type="password" formControlName="password" placeholder="Digite sua senha" required />
       <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
-        A senha é obrigatória. Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número.
+        A senha inválida. Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula e um número.
       </div>
 
       <label>Confirmar Senha</label>
@@ -31,25 +31,25 @@
       <label>Nome Completo</label>
       <input type="text" formControlName="fullName" placeholder="Nome completo" required />
       <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched">
-        Nome completo é obrigatório.
+        Nome inválido.
       </div>
 
       <label>CPF</label>
       <input type="text" formControlName="cpf" placeholder="000.000.000-00" required />
       <div *ngIf="registerForm.get('cpf')?.invalid && registerForm.get('cpf')?.touched">
-        CPF é obrigatório.
+        CPF inválido.
       </div>
 
       <label>Data de Nascimento</label>
       <input type="date" formControlName="birthDate" required />
       <div *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched">
-        Data de nascimento é obrigatória.
+        Data de nascimento inválida.
       </div>
 
       <label>Telefone</label>
       <input type="tel" formControlName="phoneNumber" placeholder="(00) 00000-0000" required />
       <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
-        Telefone é obrigatório.
+        Telefone inválido.
       </div>
 
       <label>Curso</label>

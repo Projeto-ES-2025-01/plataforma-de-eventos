@@ -16,7 +16,6 @@ public class EventDTO {
 
     @NotBlank(message = "Nome não pode ser vazio")
     @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\\s\\-\\.,_@#&]+$", message = "Nome contém caracteres inválidos")
     private String name;
 
     @NotNull(message = "IdOrganizer não pode ser nulo")
@@ -25,7 +24,6 @@ public class EventDTO {
 
     @NotNull(message = "Data é obrigatório")
     @FutureOrPresent(message = "A data deve ser hoje ou no futuro")
-    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
     @NotNull(message = "Hora é obrigatório")

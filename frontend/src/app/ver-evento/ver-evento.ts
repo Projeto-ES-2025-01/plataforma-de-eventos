@@ -30,7 +30,7 @@ export class eventDetails {
   eventApplication() {
   const email = this.authService.getUserEmail();
   if (!email) {
-    alert('Por favor, informe seu e-mail.');
+    alert('Erro: Email do usuário não encontrado.');
     return;
   }
 

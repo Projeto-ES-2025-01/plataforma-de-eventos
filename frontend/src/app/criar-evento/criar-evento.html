@@ -1,11 +1,31 @@
 <form [formGroup]="eventoForm" (ngSubmit)="onSubmit()">
   <input formControlName="name" placeholder="Nome do evento" />
+  <div *ngIf="eventoForm.get('name')?.invalid && eventoForm.get('name')?.touched">
+  Nome inválido.
+  </div>
+
   <input formControlName="location" placeholder="Local" />
+  <div *ngIf="eventoForm.get('location')?.invalid && eventoForm.get('location')?.touched">
+  Lugar inválido.
+  </div>
+
   <label>Data:</label>
   <input type="date" formControlName="date" />
+  <div *ngIf="eventoForm.get('date')?.invalid && eventoForm.get('date')?.touched">
+    Data inválida.
+  </div>
+
   <label>Hora:</label>
   <input type="time" formControlName="time" />  
+  <div *ngIf="eventoForm.get('time')?.invalid && eventoForm.get('time')?.touched">
+    Hora inválida.
+  </div>
+
   <textarea formControlName="description" placeholder="Descrição (min. 50 caracteres)"></textarea>
+  <div *ngIf="eventoForm.get('description')?.invalid && eventoForm.get('description')?.touched">
+    Descrição inválida. Deve ter no mínimo 50 caracteres.
+  </div>
+
   <button type="submit" [disabled]="eventoForm.invalid">Criar Evento</button>
   <button type="button" routerLink="/home">Cancelar</button>
 </form>
