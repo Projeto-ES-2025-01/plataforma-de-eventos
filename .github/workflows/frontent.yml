@@ -26,4 +26,4 @@ jobs:
       - name: Build do projeto
         run: |
           cd frontend
-          npm run build -- --configuration production
+          npm run build -- --configuration=production
