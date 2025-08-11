@@ -24,7 +24,6 @@ public class StudentProfileDTO {
     private LocalDate birthDate;
 
     @NotBlank(message = "Número de telefone é obrigatório")
-    @Pattern(regexp = "^\\d{11}$", message = "CPF deve conter exatamente 11 números")
     @Size(min =11,message = "Numero deve conter 11 caracteres")
     private String phoneNumber;
 
