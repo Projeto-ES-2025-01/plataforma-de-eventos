@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { StudentProfileDTO, StudentRegisterRequest, User, UserDTO } from './user';
 import { jwtDecode} from 'jwt-decode';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = environment.apiUrl;
 
   async login(email: string, password: string): Promise<boolean> {
     console.log('Tentando fazer login');
@@ -70,7 +71,7 @@ export class AuthService {
 
 async updateStudent(request: StudentProfileDTO): Promise<any> {
   try {
-    const response = await fetch('http://localhost:8080/student/editProfile', {
+    const response = await fetch(`${this.apiUrl}/student/editProfile`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request)
@@ -89,7 +90,7 @@ async updateStudent(request: StudentProfileDTO): Promise<any> {
 
 async deleteStudent(email: string): Promise<any> {
   try {
-    const response = await fetch(`http://localhost:8080/student/deleteProfile/${email}`, {
+    const response = await fetch(`${this.apiUrl}/student/deleteProfile/${email}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     });
