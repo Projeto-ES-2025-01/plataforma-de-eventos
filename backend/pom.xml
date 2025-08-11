@@ -80,6 +80,27 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+        	<resource>
+            	<directory>src/main/resources</directory>
+            	<includes>
+                	<include>**/*.properties</include>
+            	</includes>
+        	</resource>
+    	</resources>
 	</build>
-
+	<profiles>
+	<profile>
+		<id>test</id>
+		<activation>
+		<property>
+			<name>env</name>
+			<value>test</value>
+		</property>
+		</activation>
+		<properties>
+			<spring.profiles.active>test</spring.profiles.active>
+		</properties>
+	</profile>
+	</profiles>
 </project>
