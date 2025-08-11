@@ -19,7 +19,11 @@ jobs:
           node-version: '22.17.0'
 
       - name: Instalar dependências
-        run: npm ci
+        run: |
+          cd frontend
+          npm ci
 
       - name: Build do projeto
-        run: npm run build -- --configuration=production
+        run: |
+          cd frontend
+          npm run build -- --configuration production
