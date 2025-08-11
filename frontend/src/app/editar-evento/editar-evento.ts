@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EventoService } from '../evento-service';
 import { EventoInterface } from '../eventoInterface';
@@ -32,12 +32,18 @@ export class EditarEventoComponent implements OnInit {
       name: ['', Validators.required],
       location: ['', Validators.required],
       time: ['', Validators.required],
-      date: ['', Validators.required],
-      description: ['', Validators.required],
+      date: ['', Validators.required, this.dateFutureValidator],
+      description: ['', Validators.required, Validators.minLength(50)],
     });
 
     this.carregarEvento();
   }
+
+  dateFutureValidator(control: AbstractControl) {
+  const hoje = new Date();
+  const valor = new Date(control.value);
+  return valor < hoje ? { datapassada: true } : null;
+}
 
   async carregarEvento() {
     try {
@@ -98,7 +104,7 @@ export class EditarEventoComponent implements OnInit {
         this.router.navigate(['/home']);
       } catch (error) {
         console.error('Erro ao deletar evento:', error);
-        alert('Erro ao deletar evento');
+        alert('Erro ao deletar event');
       }
     }
   }

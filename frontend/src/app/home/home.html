@@ -1,7 +1,4 @@
 <section *ngIf="hasRole('STUDENT')" class="event-list">
-  <button [routerLink]="['/editar-estudante']">
-  Editar Perfil
-</button>
   <form>
   <input type="text" placeholder="Filtrar por nome" #filterText>
   <input type="date" #startDate>

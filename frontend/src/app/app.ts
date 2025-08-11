@@ -22,13 +22,17 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  hasOrganizerRole(): boolean {
-    return this.authService.hasRole('ORGANIZER');
+  hasRole(requiredRole: string): boolean {
+    return this.authService.hasRole(requiredRole);
   }
 
   createEvent() {
   this.router.navigate(['/criar-evento']);
-}
+  }
+
+  editProfile() {
+  this.router.navigate(['/editar-estudante']);
+  }
 
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();

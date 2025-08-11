@@ -33,7 +33,7 @@ export class HomeComponent {
       this.EventoList = EventoList;
 
       if (this.hasRole('ORGANIZER')) {
-        console.log('Usuário é um organizador' + this.authService.getUserId());
+        console.log('Usuário é um organizador: ' + this.authService.getUserId());
         this.myEventList = EventoList.filter(evento => evento?.idOrganizer === parseInt(this.authService.getUserId() || '0', 10));
       } else {
         this.filteredEventoList = EventoList;
@@ -44,6 +44,7 @@ export class HomeComponent {
   hasRole(role: string): boolean {
   return this.authService.hasRole(role);
   }
+  //teste do .yml
 
   filterResults(text: string, startDate?: string, endDate?: string) {
   this.filteredEventoList = this.EventoList.filter(evento => {
@@ -59,5 +60,4 @@ export class HomeComponent {
     return matchesText && matchesStart && matchesEnd;
   });
 }
-
 }
