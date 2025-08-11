@@ -24,4 +24,5 @@ jobs:
           cache: maven
 
       - name: Compilar e rodar testes com perfil de testes
+        working-directory: backend
         run: mvn clean verify -Dspring.profiles.active=test
