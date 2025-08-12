@@ -29,6 +29,10 @@ O sistema busca, primariamente, aumentar a visibilidade de eventos universitári
 #### [PostgreSQL](https://www.postgresql.org/) - Banco de Dados
 *   Versão 17.5
 
+## Endereços
+Abaixo segue os endereços de acesso para as versões de produção do projeto
+#### [Front-end](https://frontend-6lpd.onrender.com)
+#### [Back-end](https://plataforma-de-eventos-1.onrender.com)
 
 ## 🚧 Status do Projeto
 ### Em desenvolvimento
