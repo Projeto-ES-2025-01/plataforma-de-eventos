@@ -45,7 +45,7 @@ export class CriarEventoComponent implements OnInit {
     const { date, time, name, location, description } = formValue;
     const [datePart] = date.split('T');
     const [year, month, day] = datePart.split('-');
-    const dateTimeString = `${day}/${month}/${year}`;
+    const dateTimeString = `${year}-${month}-${day}`;
     const userId = parseInt(this.authService.getUserId() || '0', 10);
 
     const eventoFinal = {
