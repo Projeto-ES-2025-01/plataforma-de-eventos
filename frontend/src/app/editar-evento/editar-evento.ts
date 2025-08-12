@@ -32,7 +32,7 @@ export class EditarEventoComponent implements OnInit {
       name: ['', Validators.required],
       location: ['', Validators.required],
       time: ['', Validators.required],
-      date: ['', Validators.required, this.dateFutureValidator],
+      date: ['', [Validators.required, this.dateFutureValidator]],
       description: ['', Validators.required, Validators.minLength(50)],
     });
 
