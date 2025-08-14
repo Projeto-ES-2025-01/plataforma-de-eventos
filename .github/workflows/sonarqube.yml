@@ -38,4 +38,5 @@ jobs:
         run: mvn clean -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dspring-boot.run.profiles=test \
             -Dspring.profiles.active=test \
+            -Dsonar.organization=projeto-es-2025-01 \
             -Dsonar.projectKey=Projeto-ES-2025-01_plataforma-de-eventos
