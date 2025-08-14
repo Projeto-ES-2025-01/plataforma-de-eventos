@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<sonar.organization>projeto-es-2025-01</sonar.organization>
+		<sonar.projectKey>Projeto-ES-2025-01_plataforma-de-eventos</sonar.projectKey>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
