@@ -47,6 +47,11 @@ export class EventoService {
     return data.json() ?? {};
   }
 
+  async getOrganizerByEmail(email: string): Promise<string> {
+    const data = await fetch(`${this.apiUrl}/organizer/getId/${email}`);
+    return data.json() ?? {};
+  }
+
   async submitApplication( eventoId: number, StudentProfileDTO: StudentProfileDTO): Promise<any> {
     const response = await fetch(`${this.apiUrl}/student/joinEvent/${eventoId}`, {
       method: "POST",
@@ -71,7 +76,7 @@ export class EventoService {
     console.log(data);
   }
 
-  async updateEvento(EventoInterface: EventoInterface, eventoId: number) {
+  async updateEvento(EventoInterface: EventoInterface, eventoId: number) : Promise<any> {
     const response = await fetch(`${this.apiUrl}/event/update/${eventoId}`, {
       method: "PUT",
       headers: {

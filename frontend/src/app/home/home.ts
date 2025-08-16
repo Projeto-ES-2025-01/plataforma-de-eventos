@@ -28,13 +28,20 @@ export class HomeComponent {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const email = this.authService.getUserEmail() || '';
+    const idOrganizer = await this.eventoService.getOrganizerByEmail(email);
+    console.log('ID do Organizador: ' + idOrganizer);
+
     this.eventoService.getAllEventos().then((EventoList) => {
       this.EventoList = EventoList;
-
+      if (!email) {
+        console.error('Email do usuário não encontrado.');
+        return;
+      }
       if (this.hasRole('ORGANIZER')) {
         console.log('Usuário é um organizador: ' + this.authService.getUserId());
-        this.myEventList = EventoList.filter(evento => evento?.idOrganizer === parseInt(this.authService.getUserId() || '0', 10));
+        this.myEventList = EventoList.filter(evento => evento?.idOrganizer === parseInt(idOrganizer));
       } else {
         this.filteredEventoList = EventoList;
       }
