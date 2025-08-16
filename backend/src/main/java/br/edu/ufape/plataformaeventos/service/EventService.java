@@ -2,6 +2,7 @@ package br.edu.ufape.plataformaeventos.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,15 +16,20 @@ import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
+import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
+import br.edu.ufape.plataformaeventos.repository.UserRepository;
 
 @Service
 public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private OrganizerProfileRepository organizerProfileRepository;
@@ -127,8 +133,11 @@ private void updateEventProperties(EventDTO eventDTO, Event entity) {
     entity.setLocation(eventDTO.getLocation());
     entity.setDescription(eventDTO.getDescription());
 
-    OrganizerProfile organizer = organizerProfileRepository.findById(eventDTO.getIdOrganizer())
+    User user = userRepository.findById(eventDTO.getIdOrganizer())
+        .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+    OrganizerProfile organizer = organizerProfileRepository.findByUserEmail(user.getUsername())
         .orElseThrow(() -> new RuntimeException("Organizador não encontrado"));
+       
 
     entity.setOrganizer(organizer);
 }
