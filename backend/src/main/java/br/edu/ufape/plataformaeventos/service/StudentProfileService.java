@@ -1,19 +1,13 @@
 package br.edu.ufape.plataformaeventos.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import br.edu.ufape.plataformaeventos.dto.EventDTO;
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.dto.UserDTO;
-import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
@@ -100,31 +94,5 @@ public class StudentProfileService {
         return studentProfileRepository.findAll().stream()
                 .map(StudentProfile::toDTO)
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void addParticipant(Event event,StudentProfile student){
-
-        if (student == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudante não encontrado");
-        }
-        event.addParticipant(student);
-        eventRepository.save(event);
-
-        student.addEvent(event);
-        studentProfileRepository.save(student);
-    }
-
-    public Set<EventDTO> getEventsOfStudent(String email) {
-        StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
-        if (studentProfile == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudante não encontrado");
-        }
-        Set<Event> eventos = studentProfile.getEvents();
-        Set<EventDTO> eventosDTO = new HashSet<>(); 
-        for(Event eventoTemp: eventos){
-            eventosDTO.add(eventoTemp.eventToEventDTO());
-        }
-        return eventosDTO;
     }
 }

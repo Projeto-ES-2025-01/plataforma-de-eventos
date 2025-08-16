@@ -79,14 +79,14 @@ public class StudentProfileController {
         if(participant==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
         }
-        studentProfileService.addParticipant(event,participant);
+        eventService.addParticipantToEvent(event,participant);
         return ResponseEntity.status(HttpStatus.OK).body("Participante adicionado ao evento com sucesso");
         
     }
 
     @GetMapping("/getStudentEvents/{email}")
         ResponseEntity<Set<EventDTO>> getEvents(@PathVariable String email){
-            Set<EventDTO> events = studentProfileService.getEventsOfStudent(email);
+            Set<EventDTO> events = eventService.findEventsByStudent(email);
             
             return ResponseEntity.status(HttpStatus.OK).body(events);
         }

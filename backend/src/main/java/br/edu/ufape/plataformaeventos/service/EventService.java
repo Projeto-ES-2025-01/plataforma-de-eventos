@@ -2,7 +2,6 @@ package br.edu.ufape.plataformaeventos.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,12 +20,17 @@ import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private StudentProfileRepository studentRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -107,6 +111,28 @@ public class EventService {
         return participant.toDTO();    
     }
 
+
+    public Set<EventDTO> findEventsByStudent(String email) {
+        StudentProfile student = studentRepository.findByUserEmail(email);
+        return eventRepository.findByParticipantsContaining(student).stream()
+        .map(Event::eventToEventDTO)
+        .collect(Collectors.toSet());
+    }
+    
+    @Transactional
+    public void addParticipantToEvent(Event event, StudentProfile participant) {
+        event.addParticipant(participant);
+    }
+
+
+    @Transactional
+    public void removeParticipantFromEvent(Long eventId, Long studentId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
+        StudentProfile student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+
+        event.getParticipants().remove(student);
+    }
+
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
@@ -123,6 +149,8 @@ public class EventService {
         .map(StudentProfile::toDTO)
         .collect(Collectors.toList());
     }
+
+    
 
     
 
