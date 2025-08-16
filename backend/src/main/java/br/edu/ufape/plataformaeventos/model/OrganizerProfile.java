@@ -1,17 +1,11 @@
 package br.edu.ufape.plataformaeventos.model;
 
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -30,9 +24,6 @@ public class OrganizerProfile {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @OneToMany(mappedBy = "organizer", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private Set<Event> events;
 
     public OrganizerProfile() {
 
@@ -50,9 +41,7 @@ public class OrganizerProfile {
         return user;
     }
 
-    public Set<Event> getEvents() {
-        return events;
-    }
+  
 
     public void setId(Long id) {
         this.id = id;
@@ -60,10 +49,6 @@ public class OrganizerProfile {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public void setEvents(Set<Event> events) {
-        this.events = events;
     }
 
 

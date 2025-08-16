@@ -5,8 +5,6 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,7 +44,6 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "organizer_id", nullable = false)
-    @JsonBackReference
     private OrganizerProfile organizer;
 
     @ManyToMany
@@ -55,7 +52,6 @@ public class Event {
         joinColumns = @JoinColumn(name = "event_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
-    @JsonBackReference
     private Set<StudentProfile> participants = new HashSet<>();
 
     public Event() {
@@ -141,13 +137,8 @@ public class Event {
 
     public void addParticipant(StudentProfile participant) {
         this.participants.add(participant);
-        participant.getEvents().add(this);
     }
 
-    public void removeParticipant(StudentProfile participant) {
-        this.participants.remove(participant);
-        participant.getEvents().remove(this);
-    }
 
     public EventDTO eventToEventDTO() {
         EventDTO eventDTO = new EventDTO();
