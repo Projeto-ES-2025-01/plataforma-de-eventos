@@ -1,6 +1,6 @@
 package br.edu.ufape.plataformaeventos.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +13,12 @@ import br.edu.ufape.plataformaeventos.service.OrganizerProfileService;
 @RequestMapping("/organizer")
 public class OrganizerProfileController {
 
-    @Autowired
     OrganizerProfileService organizerProfileService;
+
+    public OrganizerProfileController (OrganizerProfileService organizerProfileService){
+        this.organizerProfileService = organizerProfileService;
+
+    }
 
     @GetMapping("/getId/{email}")
     public String getMethodName(@PathVariable String email) {

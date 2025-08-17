@@ -1,7 +1,6 @@
 package br.edu.ufape.plataformaeventos.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -91,6 +90,6 @@ public class StudentProfileService {
     public List<StudentProfileDTO> getAllStudentProfiles() {
         return studentProfileRepository.findAll().stream()
                 .map(StudentProfile::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

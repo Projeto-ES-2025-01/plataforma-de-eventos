@@ -27,7 +27,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/event")
 public class EventController {
 
-    @Autowired
     private EventService eventService;
 
     public EventController(EventService eventService){

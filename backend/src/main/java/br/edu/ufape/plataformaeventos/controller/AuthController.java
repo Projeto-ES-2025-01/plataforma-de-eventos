@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;

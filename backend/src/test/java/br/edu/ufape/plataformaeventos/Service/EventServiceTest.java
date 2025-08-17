@@ -6,7 +6,6 @@ import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
 import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
-import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
 import br.edu.ufape.plataformaeventos.service.EventService;
 import br.edu.ufape.plataformaeventos.util.UserRole;
