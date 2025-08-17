@@ -1,6 +1,5 @@
 package br.edu.ufape.plataformaeventos.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ufape.plataformaeventos.dto.UserDTO;
@@ -14,11 +13,15 @@ import jakarta.transaction.Transactional;
 @Service
 public class OrganizerProfileService {
 
-    @Autowired
+    
     private UserRepository userRepository;
-
-    @Autowired
     private OrganizerProfileRepository organizerProfileRepository;
+
+    public OrganizerProfileService(UserRepository userRepository,
+    OrganizerProfileRepository organizerProfileRepository){
+        this.userRepository = userRepository;
+        this.organizerProfileRepository = organizerProfileRepository;
+    }
 
     @Transactional
     public OrganizerProfile createOrganizerProfile(UserDTO userDTO) {
