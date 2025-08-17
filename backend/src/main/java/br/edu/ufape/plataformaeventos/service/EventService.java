@@ -84,8 +84,8 @@ public class EventService {
         return eventRepository.findByDateBetween(maxDate, miDate);
     }
 
-    public List<StudentProfileDTO> findParticipantsByName(Long EventId, String name) {
-        Event event = eventRepository.findById(EventId)
+    public List<StudentProfileDTO> findParticipantsByName(Long eventId, String name) {
+        Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
 
         Set<StudentProfile> participants = event.getParticipants();    
@@ -93,7 +93,7 @@ public class EventService {
         return participants.stream()
             .filter(student -> student.getFullName().toLowerCase().contains(name.toLowerCase().trim()))
         .map(StudentProfile::toDTO)
-        .collect(Collectors.toList());    
+        .toList();    
     }
 
     public StudentProfileDTO findParticipantByCpf(Long eventId, String cpf) {
@@ -147,7 +147,7 @@ public class EventService {
         }
         return participants.stream()
         .map(StudentProfile::toDTO)
-        .collect(Collectors.toList());
+        .toList();
     }
 
     
