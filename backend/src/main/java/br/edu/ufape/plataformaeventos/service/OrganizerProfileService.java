@@ -8,6 +8,7 @@ import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
 import br.edu.ufape.plataformaeventos.util.UserRole;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -34,5 +35,11 @@ public class OrganizerProfileService {
         OrganizerProfile organizerProfile = new OrganizerProfile();
         organizerProfile.setUser(user);
         return organizerProfileRepository.save(organizerProfile);
+    }
+
+    public String getOrganizerId(String email) {
+        OrganizerProfile organizerProfile = organizerProfileRepository.findByUserEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Organizador não encontrado com esse email: " + email));
+        return String.valueOf(organizerProfile.getId());
     }
 }
