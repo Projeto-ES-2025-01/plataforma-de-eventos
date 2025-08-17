@@ -1,7 +1,6 @@
 package br.edu.ufape.plataformaeventos.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +17,15 @@ import br.edu.ufape.plataformaeventos.repository.UserRepository;
 @Service
 public class AuthService implements UserDetailsService {
     
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private StudentProfileService studentProfileService;
-
-    @Autowired
     private OrganizerProfileService organizerProfileService;
+
+    public AuthService(UserRepository userRepository, StudentProfileService studentProfileService, OrganizerProfileService organizerProfileService){
+        this.userRepository = userRepository;
+        this.organizerProfileService = organizerProfileService;
+        this.studentProfileService= studentProfileService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
