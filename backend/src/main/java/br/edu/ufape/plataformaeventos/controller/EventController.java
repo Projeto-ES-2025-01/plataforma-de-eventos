@@ -27,8 +27,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/event")
 public class EventController {
 
-    @Autowired
     private EventService eventService;
+
+    public EventController(EventService eventService){
+        this.eventService = eventService;
+    }
     
     @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody @Valid EventDTO eventoDTO) {
@@ -69,7 +72,7 @@ public class EventController {
     }
 
     @GetMapping("/search/participants/{eventId}")
-    public ResponseEntity<?> searchParticipantsByName(
+    public ResponseEntity<List<StudentProfileDTO>> searchParticipantsByName(
         @PathVariable Long eventId,
         @RequestParam String name) {
 

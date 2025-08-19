@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    
     private final AuthService authService;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
@@ -45,7 +46,7 @@ public class AuthController {
 
 
     @PostMapping("/register/student")
-    public ResponseEntity<?> registerStudent(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
+    public ResponseEntity<Object> registerStudent(@RequestBody @Valid UserRegistrationDTO userRegistrationDTO) {
 
         userRegistrationDTO.getUserDTO().setRole(UserRole.STUDENT);
 
@@ -54,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/organizer")
-    public ResponseEntity<?> registerOrganizer(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<Object> registerOrganizer(@RequestBody @Valid UserDTO userDTO) {
 
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
         userRegistrationDTO.setUserDTO(userDTO);

@@ -3,7 +3,6 @@ package br.edu.ufape.plataformaeventos.controller;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +29,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/student") 
 public class StudentProfileController {
     
-    @Autowired
     StudentProfileService studentProfileService;
-    @Autowired
     EventService eventService;
 
+    public StudentProfileController(StudentProfileService studentProfileService,EventService eventService){
+        this.eventService = eventService;
+        this.studentProfileService = studentProfileService;
+    }
 
     @GetMapping("/getProfile/{email}")
     public ResponseEntity<StudentProfileDTO> getStudentProfile(@PathVariable String email){
