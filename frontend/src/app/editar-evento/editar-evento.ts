@@ -33,7 +33,7 @@ export class EditarEventoComponent implements OnInit {
       location: ['', Validators.required],
       time: ['', Validators.required],
       date: ['', [Validators.required, this.dateFutureValidator]],
-      description: ['', Validators.required, Validators.minLength(50)],
+      description: ['', [Validators.required, Validators.minLength(50)]],
     });
 
     this.carregarEvento();
@@ -69,7 +69,7 @@ export class EditarEventoComponent implements OnInit {
     if (this.eventoForm.valid) {
       const { name, location, time, date, description, idOrganizer } = this.eventoForm.value;
       const [year, month, day] = date.split('-');
-      const dateFormatted = `${day}/${month}/${year}`;
+      const dateFormatted = `${year}-${month}-${day}`;
       const timeFormatted = time?.substring(0, 5);
       const idOrganizerNumber = Number(this.authService.getUserId());
 
