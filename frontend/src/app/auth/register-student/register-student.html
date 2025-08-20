@@ -35,9 +35,9 @@
       </div>
 
       <label>CPF</label>
-      <input type="text" formControlName="cpf" placeholder="000.000.000-00" required />
+      <input type="text" formControlName="cpf" placeholder="00000000000" required />
       <div *ngIf="registerForm.get('cpf')?.invalid && registerForm.get('cpf')?.touched">
-        CPF inválido.
+        CPF inválido. Deve conter 11 dígitos e apenas números.
       </div>
 
       <label>Data de Nascimento</label>
@@ -47,9 +47,9 @@
       </div>
 
       <label>Telefone</label>
-      <input type="tel" formControlName="phoneNumber" placeholder="(00) 00000-0000" required />
+      <input type="tel" formControlName="phoneNumber" placeholder="00000000000" required />
       <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched">
-        Telefone inválido.
+        Telefone inválido. Deve conter 11 dígitos e apenas números.
       </div>
 
       <label>Curso</label>
@@ -73,7 +73,7 @@
       <label>Período Atual</label>
       <input type="number" formControlName="currentPeriod" min="1" required />
       <div *ngIf="registerForm.get('currentPeriod')?.invalid && registerForm.get('currentPeriod')?.touched">
-        Período atual é obrigatório.
+        Período atual é obrigatório. Minimo 1, máximo 9.
       </div>
 
       <button type="submit" [disabled]="registerForm.invalid">Cadastrar</button>
