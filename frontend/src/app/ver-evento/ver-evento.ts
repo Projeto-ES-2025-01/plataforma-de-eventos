@@ -72,7 +72,7 @@ export class eventDetails {
         alert('Estudante não encontrado.');
         return;
       }
-      this.inscrito = true;
+      this.inscrito = false;
       this.eventoService.unsubmitApplication(eventoId, studentProfile)
         .then(() => {
           console.log('Inscrição cancelada');

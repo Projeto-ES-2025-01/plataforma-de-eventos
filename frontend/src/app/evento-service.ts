@@ -66,7 +66,7 @@ export class EventoService {
 
   async unsubmitApplication( eventoId: number, StudentProfileDTO: StudentProfileDTO): Promise<any> {
     const response = await fetch(`${this.apiUrl}/student/leaveEvent/${eventoId}`, {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json"
       },
