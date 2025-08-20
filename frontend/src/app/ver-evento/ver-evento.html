@@ -16,9 +16,8 @@
   <section class="listing-apply">
   <h2 class="section-heading">Inscrição</h2>
   <button class="primary" 
-          (click)="eventApplication()" 
-          [disabled]="inscrito">
-    {{ inscrito ? 'Inscrito' : 'Inscrever-se' }}
+          (click)="inscrito ? unsubscribe() : eventApplication()">
+    {{ inscrito ? 'Cancelar inscrição' : 'Inscrever-se' }}
   </button>
 </section>
 </article>
