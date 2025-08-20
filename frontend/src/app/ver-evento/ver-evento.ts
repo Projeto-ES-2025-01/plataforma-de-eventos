@@ -27,6 +27,8 @@ export class eventDetails {
     });
   }
 
+  inscrito: boolean = false;
+
   eventApplication() {
   const email = this.authService.getUserEmail();
   if (!email) {
@@ -41,7 +43,7 @@ export class eventDetails {
         alert('Estudante não encontrado.');
         return;
       }
-
+      this.inscrito = true;
       this.eventoService.submitApplication(eventoId, studentProfile)
         .then(() => {
           alert('Inscrição realizada com sucesso!');
