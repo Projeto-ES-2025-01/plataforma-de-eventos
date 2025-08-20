@@ -1,13 +1,12 @@
 package br.edu.ufape.plataformaeventos.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.dto.UserDTO;
+import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
@@ -20,14 +19,16 @@ import jakarta.transaction.Transactional;
 @Service
 public class StudentProfileService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private StudentProfileRepository studentProfileRepository;
-
-    @Autowired
     private EventRepository eventRepository;
+
+    public StudentProfileService(UserRepository userRepository, StudentProfileRepository studentProfileRepository, EventRepository eventRepository) {
+        this.userRepository = userRepository;
+        this.studentProfileRepository = studentProfileRepository;
+        this.eventRepository = eventRepository;
+    }
+
 
     @Transactional
     public StudentProfile createStudentProfile(UserDTO userDTO, StudentProfileDTO studentProfileDTO) {
@@ -77,10 +78,16 @@ public class StudentProfileService {
         }
     }   
 
+    @Transactional
     public void deleteStudentProfile(String email) {
         StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
         if (studentProfile == null) {
             throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
+        }
+        List<Event> events = eventRepository.findByParticipantsContaining(studentProfile);
+        for (Event event : events) {
+            event.getParticipants().remove(studentProfile);
+            eventRepository.save(event);
         }
         studentProfileRepository.delete(studentProfile);
         userRepository.deleteByEmail(email);
@@ -93,6 +100,6 @@ public class StudentProfileService {
     public List<StudentProfileDTO> getAllStudentProfiles() {
         return studentProfileRepository.findAll().stream()
                 .map(StudentProfile::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

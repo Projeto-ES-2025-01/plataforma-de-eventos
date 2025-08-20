@@ -3,7 +3,6 @@ package br.edu.ufape.plataformaeventos.controller;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +29,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/student") 
 public class StudentProfileController {
     
-    @Autowired
     StudentProfileService studentProfileService;
-    @Autowired
     EventService eventService;
 
+    public StudentProfileController(StudentProfileService studentProfileService,EventService eventService){
+        this.eventService = eventService;
+        this.studentProfileService = studentProfileService;
+    }
 
     @GetMapping("/getProfile/{email}")
     public ResponseEntity<StudentProfileDTO> getStudentProfile(@PathVariable String email){
@@ -81,6 +82,22 @@ public class StudentProfileController {
         }
         eventService.addParticipantToEvent(event,participant);
         return ResponseEntity.status(HttpStatus.OK).body("Participante adicionado ao evento com sucesso");
+        
+    }
+
+    @Transactional
+    @DeleteMapping("/leaveEvent/{eventId}")
+    public ResponseEntity<String> leaveEvent(@PathVariable long eventId, @RequestBody StudentProfileDTO studentProfileDTO){
+        Event event = eventService.findById(eventId);
+        if(event==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+        }
+        StudentProfile participant = studentProfileService.findByCPF(studentProfileDTO.getCpf());
+        if(participant==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+        }
+        eventService.removeParticipantFromEvent(eventId,participant.getId());
+        return ResponseEntity.status(HttpStatus.OK).body("Participante removido do evento com sucesso");
         
     }
 

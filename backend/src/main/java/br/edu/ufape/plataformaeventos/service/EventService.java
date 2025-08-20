@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,21 +24,22 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class EventService {
+    
+    private static final String MENSAGEM_EVENTO_NAO_ENCOTRADO =  "Evento não encontrado!";
 
-    @Autowired
     private EventRepository eventRepository;
-
-    @Autowired
     private StudentProfileRepository studentRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private OrganizerProfileRepository organizerProfileRepository;
-
-    @Autowired
     private StudentProfileRepository studentProfileRepository;
+
+    public EventService(EventRepository eventRepository,StudentProfileRepository studentRepository, UserRepository userRepository,OrganizerProfileRepository organizerProfileRepository,StudentProfileRepository studentProfileRepository){
+        this.eventRepository = eventRepository;
+        this.studentRepository = studentRepository;
+        this.userRepository = userRepository;
+        this.organizerProfileRepository = organizerProfileRepository;
+        this.studentProfileRepository= studentProfileRepository;
+    }
 
     public Event createEvent(EventDTO eventDTO) {
         Event entity = new Event();
@@ -53,7 +53,7 @@ public class EventService {
     public Event updateEvent(Long idEvent, EventDTO eventDTO) {
         Event entity = eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-        "Evento não encontrado!"));
+        MENSAGEM_EVENTO_NAO_ENCOTRADO));
 
         this.updateEventProperties(eventDTO, entity);
         eventRepository.save(entity);
@@ -63,7 +63,7 @@ public class EventService {
     public Event getEventDetails(Long idEvent) {
         return this.eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-        "Evento não encontrada!"));
+        MENSAGEM_EVENTO_NAO_ENCOTRADO));
     }
 
     public void deleteEvent(Long idEvent ) {
@@ -71,7 +71,7 @@ public class EventService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O nome do Evento é obrigatório!");
         }
         Event entity = eventRepository.findById(idEvent)
-          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
 
         eventRepository.delete(entity);
     }
@@ -84,21 +84,21 @@ public class EventService {
         return eventRepository.findByDateBetween(maxDate, miDate);
     }
 
-    public List<StudentProfileDTO> findParticipantsByName(Long EventId, String name) {
-        Event event = eventRepository.findById(EventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+    public List<StudentProfileDTO> findParticipantsByName(Long eventId, String name) {
+        Event event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
 
         Set<StudentProfile> participants = event.getParticipants();    
 
         return participants.stream()
             .filter(student -> student.getFullName().toLowerCase().contains(name.toLowerCase().trim()))
         .map(StudentProfile::toDTO)
-        .collect(Collectors.toList());    
+        .toList();    
     }
 
     public StudentProfileDTO findParticipantByCpf(Long eventId, String cpf) {
         Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
         
         StudentProfile participant = studentProfileRepository.findByCpf(cpf);
         if (participant == null) {
@@ -127,8 +127,8 @@ public class EventService {
 
     @Transactional
     public void removeParticipantFromEvent(Long eventId, Long studentId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException("Event not found"));
-        StudentProfile student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student not found"));
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException(MENSAGEM_EVENTO_NAO_ENCOTRADO));
+        StudentProfile student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student não encontrado!"));
 
         event.getParticipants().remove(student);
     }
@@ -139,7 +139,7 @@ public class EventService {
 
     public List<StudentProfileDTO> getAllParticipantByEvent (Long eventId){
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
 
         Set<StudentProfile> participants = event.getParticipants();
         if (participants == null) {
@@ -147,7 +147,7 @@ public class EventService {
         }
         return participants.stream()
         .map(StudentProfile::toDTO)
-        .collect(Collectors.toList());
+        .toList();
     }
 
     
@@ -172,7 +172,7 @@ private void updateEventProperties(EventDTO eventDTO, Event entity) {
 
     public Event findById(Long eventId) {
         return eventRepository.findById(eventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado!"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
     
    
 }

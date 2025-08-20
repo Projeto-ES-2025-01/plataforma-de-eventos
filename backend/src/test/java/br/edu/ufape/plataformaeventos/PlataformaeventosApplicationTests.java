@@ -10,6 +10,7 @@ class PlataformaeventosApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Ainda falta implementar
 	}
 
 }
