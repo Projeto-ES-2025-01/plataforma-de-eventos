@@ -27,6 +27,8 @@ export class eventDetails {
     });
   }
 
+  inscrito: boolean = false;
+
   eventApplication() {
   const email = this.authService.getUserEmail();
   if (!email) {
@@ -41,10 +43,39 @@ export class eventDetails {
         alert('Estudante não encontrado.');
         return;
       }
-
+      this.inscrito = true;
       this.eventoService.submitApplication(eventoId, studentProfile)
         .then(() => {
           alert('Inscrição realizada com sucesso!');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert('Erro ao buscar estudante.');
+    });
+  }
+
+  unsubscribe() {
+    const email = this.authService.getUserEmail();
+  if (!email) {
+    alert('Erro: Email do usuário não encontrado.');
+    return;
+  }
+
+  const eventoId = Number(this.route.snapshot.params['id']);
+  this.eventoService.getEstudanteByEmail(email)
+    .then((studentProfile) => {
+      if (!studentProfile) {
+        alert('Estudante não encontrado.');
+        return;
+      }
+      this.inscrito = false;
+      this.eventoService.unsubmitApplication(eventoId, studentProfile)
+        .then(() => {
+          console.log('Inscrição cancelada');
         })
         .catch((err) => {
           console.error(err);

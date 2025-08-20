@@ -64,6 +64,18 @@ export class EventoService {
     console.log(data);
   }
 
+  async unsubmitApplication( eventoId: number, StudentProfileDTO: StudentProfileDTO): Promise<any> {
+    const response = await fetch(`${this.apiUrl}/student/leaveEvent/${eventoId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(StudentProfileDTO)
+  });
+    const data = await response.json();
+    console.log(data);
+  }
+
   async addEvento(CriarEventoInterface: CriarEventoInterface) : Promise<any> {
     const response = await fetch(this.apiUrl + '/event/create', {
       method: "POST",

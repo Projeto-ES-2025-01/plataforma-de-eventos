@@ -66,7 +66,7 @@ export class EditarStudentComponent implements OnInit {
           this.router.navigate(['/home']);
         })
         .catch(err => {
-          alert('Erro ao atualizar perfil: ' + err);
+          console.error('Erro ao atualizar perfil: ' + err);
         });
     }
   }
@@ -85,13 +85,12 @@ export class EditarStudentComponent implements OnInit {
             alert('Perfil deletado com sucesso!');
             this.router.navigate(['/login']);
           } else {
-            alert('Erro ao deletar perfil');
+            console.error('Erro ao deletar perfil');
             this.router.navigate(['/login']);
           }
         })
         .catch(err => {
           console.error(err);
-          alert('Erro ao deletar perfil');
           this.router.navigate(['/login']);
         });
     }

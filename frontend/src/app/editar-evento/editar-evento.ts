@@ -103,8 +103,7 @@ export class EditarEventoComponent implements OnInit {
         alert('Evento deletado com sucesso!');
         this.router.navigate(['/home']);
       } catch (error) {
-        console.error('Erro ao deletar evento:', error);
-        alert('Erro ao deletar event');
+        console.error('Error:', error);
       }
     }
   }
