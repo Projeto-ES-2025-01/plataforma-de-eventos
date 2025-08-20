@@ -23,11 +23,11 @@ export class RegisterStudentComponent {
     confirmPassword: ['', [Validators.required]],
     
     fullName: ['', [Validators.required]],
-    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(/^\d{11}$/)]],
     birthDate: ['', [Validators.required, this.datePastValidator]],
-    phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+    phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11), Validators.pattern(/^\d{11}$/)]],
     degreeProgram: ['', [Validators.required]],
-    currentPeriod: [1, [Validators.required, Validators.min(1)]]
+    currentPeriod: [1, [Validators.required, Validators.min(1), Validators.max(9)]]
   }, { validators: this.passwordMatchValidator });
 
   passwordMatchValidator(formGroup: FormGroup) {
