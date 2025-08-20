@@ -23,7 +23,7 @@ public class StudentProfileService {
     private StudentProfileRepository studentProfileRepository;
     private EventRepository eventRepository;
 
-    public StudentProfileService(UserRepository userRepository, StudentProfileRepository studentProfileRepository){
+    public StudentProfileService(UserRepository userRepository, StudentProfileRepository studentProfileRepository, EventRepository eventRepository) {
         this.userRepository = userRepository;
         this.studentProfileRepository = studentProfileRepository;
         this.eventRepository = eventRepository;
