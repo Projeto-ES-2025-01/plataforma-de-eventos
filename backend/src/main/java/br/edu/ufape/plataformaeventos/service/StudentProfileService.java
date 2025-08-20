@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.dto.UserDTO;
+import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.model.User;
+import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
 import br.edu.ufape.plataformaeventos.util.UserRole;
@@ -19,10 +21,12 @@ public class StudentProfileService {
 
     private UserRepository userRepository;
     private StudentProfileRepository studentProfileRepository;
+    private EventRepository eventRepository;
 
     public StudentProfileService(UserRepository userRepository, StudentProfileRepository studentProfileRepository){
         this.userRepository = userRepository;
         this.studentProfileRepository = studentProfileRepository;
+        this.eventRepository = eventRepository;
     }
 
 
@@ -74,10 +78,16 @@ public class StudentProfileService {
         }
     }   
 
+    @Transactional
     public void deleteStudentProfile(String email) {
         StudentProfile studentProfile = studentProfileRepository.findByUserEmail(email);
         if (studentProfile == null) {
             throw new EntityNotFoundException("Perfil de Estudante não encontrado com esse email: " + email);
+        }
+        List<Event> events = eventRepository.findByParticipantsContaining(studentProfile);
+        for (Event event : events) {
+            event.getParticipants().remove(studentProfile);
+            eventRepository.save(event);
         }
         studentProfileRepository.delete(studentProfile);
         userRepository.deleteByEmail(email);
