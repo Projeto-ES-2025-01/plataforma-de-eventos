@@ -85,6 +85,22 @@ public class StudentProfileController {
         
     }
 
+    @Transactional
+    @DeleteMapping("/leaveEvent/{eventId}")
+    public ResponseEntity<String> leaveEvent(@PathVariable long eventId, @RequestBody StudentProfileDTO studentProfileDTO){
+        Event event = eventService.findById(eventId);
+        if(event==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+        }
+        StudentProfile participant = studentProfileService.findByCPF(studentProfileDTO.getCpf());
+        if(participant==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+        }
+        eventService.removeParticipantFromEvent(eventId,participant.getId());
+        return ResponseEntity.status(HttpStatus.OK).body("Participante removido do evento com sucesso");
+        
+    }
+
     @GetMapping("/getStudentEvents/{email}")
         ResponseEntity<Set<EventDTO>> getEvents(@PathVariable String email){
             Set<EventDTO> events = eventService.findEventsByStudent(email);
