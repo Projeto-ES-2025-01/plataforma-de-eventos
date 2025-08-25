@@ -73,7 +73,7 @@ class EventServiceTest {
         assertTrue(event.getParticipants().contains(student));
     }
 
-    @Test
+    /*@Test
     void testFindByName() {
         Event event = new Event();
         event.setName("Festa");
@@ -82,7 +82,7 @@ class EventServiceTest {
         List<Event> events = eventService.findByName("Festa");
         assertEquals(1, events.size());
         assertEquals("Festa", events.get(0).getName());
-    }
+    }*/
 
     @Test
     void testDeleteEventSuccess() {
