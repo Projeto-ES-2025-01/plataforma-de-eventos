@@ -12,7 +12,7 @@ import br.edu.ufape.plataformaeventos.model.StudentProfile;
 
 
 @Repository
-public interface EventRepository extends JpaRepository<Event, Long>,EventRepositoryCustom {
+public interface EventRepository extends JpaRepository<Event, Long>{
 
     List<Event> findByNameIgnoreCase(String name);
 
