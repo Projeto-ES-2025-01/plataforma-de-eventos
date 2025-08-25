@@ -173,4 +173,39 @@ class StudentProfileControllerTest {
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
+
+    @Test
+    void testLeaveEvent_EventNotFound() {
+        // Simula evento não encontrado
+        when(eventService.findById(1L)).thenReturn(null);
+
+        ResponseEntity<String> response = controller.leaveEvent(1L, sampleDTO);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Evento não encontrado", response.getBody());
+    }
+
+    @Test
+    void testLeaveEvent_StudentNotFound() {
+        // Evento encontrado
+        when(eventService.findById(1L)).thenReturn(sampleEvent);
+        // Estudante não encontrado
+        when(studentProfileService.findByCPF("12345678900")).thenReturn(null);
+
+        ResponseEntity<String> response = controller.leaveEvent(1L, sampleDTO);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals("Estudante não encontrado", response.getBody());
+    }
+
+    @Test
+    void testEditStudentProfile_CpfEmpty() {
+        sampleDTO.setCpf("");
+
+        ResponseEntity<String> response = controller.editStudentProfile(sampleDTO);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        verify(studentProfileService, never()).updateStudentProfile(any());
+    }
+
 }
