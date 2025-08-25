@@ -1,9 +1,6 @@
 package br.edu.ufape.plataformaeventos.controller;
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
@@ -55,48 +51,6 @@ public class EventController {
     @GetMapping("/get/{idEvent}")
     public Event getEventDetails(@PathVariable Long idEvent) {
         return eventService.getEventDetails(idEvent);
-    }
-
-    @GetMapping("/search")
-    public List<Event> searchEvent(@RequestParam(required = false) String name){
-        if (name != null) {
-            return eventService.findByName(name);
-        } 
-        return Collections.emptyList();
-    }
-
-    @GetMapping("/search/date") 
-    public List<Event> searchByDateBetween(@RequestParam(required = false) LocalDate minDate, 
-        @RequestParam(required = false) LocalDate maxDate) {
-        return eventService.findByDateBetween(minDate, maxDate);
-    }
-
-    @GetMapping("/search/participants/{eventId}")
-    public ResponseEntity<List<StudentProfileDTO>> searchParticipantsByName(
-        @PathVariable Long eventId,
-        @RequestParam String name) {
-
-            try {
-                List<StudentProfileDTO> participants = eventService.findParticipantsByName(eventId, name);
-                return participants.isEmpty()
-                    ? ResponseEntity.noContent().build()
-                    : ResponseEntity.ok(participants);
-            } catch (EntityNotFoundException e) {
-                return ResponseEntity.notFound().build();
-            }
-        }
-
-    @GetMapping("/search/participants/{eventId}/cpf")
-    public ResponseEntity<StudentProfileDTO> searchParticipantByCpf(
-        @PathVariable Long eventId,
-        @RequestParam String cpf) {
-        
-        try {
-            StudentProfileDTO participant = eventService.findParticipantByCpf(eventId, cpf);
-            return ResponseEntity.ok(participant);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @GetMapping("/allEvents")

@@ -1,24 +1,19 @@
 package br.edu.ufape.plataformaeventos.Controller;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -103,112 +98,6 @@ class EventControllerTest {
         
         assertEquals(event.getId(), result.getId());
         verify(eventService, times(1)).getEventDetails(1L);
-    }
-
-    @Test
-    void testSearchEvent_WithName() {
-        List<Event> events = Arrays.asList(event);
-        when(eventService.findByName("Tech")).thenReturn(events);
-        
-        List<Event> result = eventController.searchEvent("Tech");
-        
-        assertEquals(1, result.size());
-        assertEquals(event, result.get(0));
-        verify(eventService, times(1)).findByName("Tech");
-    }
-
-    // Teste para searchEvent - Sem nome
-    @Test
-    void testSearchEvent_WithoutName() {
-        List<Event> result = eventController.searchEvent(null);
-        
-        assertTrue(result.isEmpty());
-        verify(eventService, never()).findByName(anyString());
-    }
-
-    // Teste para searchByDateBetween - Com datas
-    @Test
-    void testSearchByDateBetween_WithDates() {
-        LocalDate minDate = LocalDate.of(2024, 1, 1);
-        LocalDate maxDate = LocalDate.of(2024, 12, 31);
-        List<Event> events = Arrays.asList(event);
-        
-        when(eventService.findByDateBetween(minDate, maxDate)).thenReturn(events);
-        
-        List<Event> result = eventController.searchByDateBetween(minDate, maxDate);
-        
-        assertEquals(1, result.size());
-        assertEquals(event, result.get(0));
-        verify(eventService, times(1)).findByDateBetween(minDate, maxDate);
-    }
-
-    // Teste para searchByDateBetween - Sem datas
-    @Test
-    void testSearchByDateBetween_WithoutDates() {
-        List<Event> result = eventController.searchByDateBetween(null, null);
-        
-        assertNotNull(result);
-        verify(eventService, times(1)).findByDateBetween(null, null);
-    }
-
-    // Teste para searchParticipantsByName - Sucesso com participantes
-    @Test
-    void testSearchParticipantsByName_SuccessWithParticipants() {
-        List<StudentProfileDTO> participants = Arrays.asList(studentProfileDTO);
-        when(eventService.findParticipantsByName(1L, "John")).thenReturn(participants);
-        
-        ResponseEntity<List<StudentProfileDTO>> resposta = eventController.searchParticipantsByName(1L, "John");
-        
-        assertEquals(HttpStatus.OK, resposta.getStatusCode());
-        assertEquals(1, resposta.getBody().size());
-        assertEquals(studentProfileDTO, resposta.getBody().get(0));
-        verify(eventService, times(1)).findParticipantsByName(1L, "John");
-    }
-
-    // Teste para searchParticipantsByName - Sucesso sem participantes
-    @Test
-    void testSearchParticipantsByName_SuccessNoContent() {
-        when(eventService.findParticipantsByName(1L, "John")).thenReturn(Collections.emptyList());
-        
-        ResponseEntity<List<StudentProfileDTO>> resposta = eventController.searchParticipantsByName(1L, "John");
-        
-        assertEquals(HttpStatus.NO_CONTENT, resposta.getStatusCode());
-        assertNull(resposta.getBody());
-        verify(eventService, times(1)).findParticipantsByName(1L, "John");
-    }
-
-    // Teste para searchParticipantsByName - Evento não encontrado
-    @Test
-    void testSearchParticipantsByName_EventNotFound() {
-        when(eventService.findParticipantsByName(1L, "John")).thenThrow(new EntityNotFoundException("Event not found"));
-        
-        ResponseEntity<List<StudentProfileDTO>> resposta = eventController.searchParticipantsByName(1L, "John");
-        
-        assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
-        verify(eventService, times(1)).findParticipantsByName(1L, "John");
-    }
-
-    // Teste para searchParticipantByCpf 
-    @Test
-    void testSearchParticipantByCpf() {
-        when(eventService.findParticipantByCpf(1L, "12345678900")).thenReturn(studentProfileDTO);
-        
-        ResponseEntity<StudentProfileDTO> resposta = eventController.searchParticipantByCpf(1L, "12345678900");
-        
-        assertEquals(HttpStatus.OK, resposta.getStatusCode());
-        assertEquals(studentProfileDTO, resposta.getBody());
-        verify(eventService, times(1)).findParticipantByCpf(1L, "12345678900");
-    }
-
-    // Teste para searchParticipantByCpf participante não encontrado
-    @Test
-    void testSearchParticipantByCpfNaoEncontrado() {
-        when(eventService.findParticipantByCpf(1L, "12345678900")).thenThrow(new EntityNotFoundException("Participante nao encontrado"));
-        
-        ResponseEntity<StudentProfileDTO> resposta = eventController.searchParticipantByCpf(1L, "12345678900");
-        
-        assertEquals(HttpStatus.NOT_FOUND, resposta.getStatusCode());
-        verify(eventService, times(1)).findParticipantByCpf(1L, "12345678900");
     }
 
     // Teste para getAllEvents que tenha eventos
