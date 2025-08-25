@@ -76,6 +76,9 @@ public class StudentProfileService {
             studentProfile.setCurrentPeriod(studentProfileDTO.getCurrentPeriod());
             studentProfileRepository.save(studentProfile);
         }
+        else {
+            throw new EntityNotFoundException("Perfil de Estudante não encontrado");
+        }
     }   
 
     @Transactional

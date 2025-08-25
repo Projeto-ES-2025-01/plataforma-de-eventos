@@ -140,6 +140,16 @@ class StudentProfileServiceTest {
     }
 
     @Test
+    void testUpdateStudentProfileNotFound() {
+        when(studentProfileRepository.findByUserEmail("naoexiste@email.com")).thenReturn(null);
+
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
+                () -> studentProfileService.updateStudentProfile(studentDTO));
+
+        assertEquals("Perfil de Estudante não encontrado", exception.getMessage());
+    }
+
+    @Test
     void testFindByCPF() {
         when(studentProfileRepository.findByCpf("12345678900")).thenReturn(studentProfile);
 

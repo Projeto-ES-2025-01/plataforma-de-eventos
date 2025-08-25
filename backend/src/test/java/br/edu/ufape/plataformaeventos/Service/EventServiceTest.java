@@ -1,12 +1,15 @@
 package br.edu.ufape.plataformaeventos.Service;
 
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
+import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
+import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
+import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.service.EventService;
 import br.edu.ufape.plataformaeventos.util.UserRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -62,6 +65,26 @@ class EventServiceTest {
     }
 
     @Test
+    void testAddParticipantToEvent() {
+        Event event = new Event();
+        StudentProfile student = new StudentProfile();
+
+        eventService.addParticipantToEvent(event, student);
+        assertTrue(event.getParticipants().contains(student));
+    }
+
+    /*@Test
+    void testFindByName() {
+        Event event = new Event();
+        event.setName("Festa");
+        when(eventRepository.findByNameIgnoreCase("Festa")).thenReturn(Collections.singletonList(event));
+
+        List<Event> events = eventService.findByName("Festa");
+        assertEquals(1, events.size());
+        assertEquals("Festa", events.get(0).getName());
+    }*/
+
+    @Test
     void testDeleteEventSuccess() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(organizerProfileRepository.findByUserEmail("organizador@gmail.com"))
@@ -75,6 +98,16 @@ class EventServiceTest {
 
         assertNull(eventRepository.findById(1L));
 
+    }
+
+    @Test
+    void testDeleteEventNotFound() {
+        when(eventRepository.findById(1L)).thenReturn(null);
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> eventService.deleteEvent(1L));
+
+        assertEquals("404 NOT_FOUND \"Evento não encontrado!\"", exception.getMessage());
     }
 
     @Test
@@ -93,6 +126,20 @@ class EventServiceTest {
 
         verify(eventRepository, times(1)).save(result);
     }
+
+    @Test
+    void testGetAllEventsSuccess() {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(organizerProfileRepository.findByUserEmail("organizador@gmail.com"))
+                .thenReturn(Optional.of(organizer));
+
+        Event result = eventService.createEvent(eventDTO);
+        assertNotNull(result);
+
+        verify(eventRepository, times(1)).save(result);
+        assertNotNull(eventService.getAllEvents());
+    }
+
 
     @Test
     void testCreateEventOrganizerNotFound() {
@@ -114,4 +161,5 @@ class EventServiceTest {
 
         assertEquals("404 NOT_FOUND \"Evento não encontrado!\"", exception.getMessage());
     }
+
 }
