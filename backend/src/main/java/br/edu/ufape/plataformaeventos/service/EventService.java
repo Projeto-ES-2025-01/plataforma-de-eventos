@@ -1,9 +1,9 @@
 package br.edu.ufape.plataformaeventos.service;
 
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,14 +31,13 @@ public class EventService {
     private StudentProfileRepository studentRepository;
     private UserRepository userRepository;
     private OrganizerProfileRepository organizerProfileRepository;
-    private StudentProfileRepository studentProfileRepository;
 
-    public EventService(EventRepository eventRepository,StudentProfileRepository studentRepository, UserRepository userRepository,OrganizerProfileRepository organizerProfileRepository,StudentProfileRepository studentProfileRepository){
+
+    public EventService(EventRepository eventRepository,StudentProfileRepository studentRepository, UserRepository userRepository,OrganizerProfileRepository organizerProfileRepository){
         this.eventRepository = eventRepository;
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
         this.organizerProfileRepository = organizerProfileRepository;
-        this.studentProfileRepository= studentProfileRepository;
     }
 
     public Event createEvent(EventDTO eventDTO) {
@@ -76,49 +75,6 @@ public class EventService {
         eventRepository.delete(entity);
     }
     
-    public List<Event> findByName(String name) {
-        return eventRepository.findByNameIgnoreCase(name);
-    }
-
-    public List<Event> findByDateBetween(LocalDate miDate,LocalDate maxDate){
-        return eventRepository.findByDateBetween(maxDate, miDate);
-    }
-
-    public List<StudentProfileDTO> findParticipantsByName(Long eventId, String name) {
-        Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
-
-        Set<StudentProfile> participants = event.getParticipants();    
-
-        return participants.stream()
-            .filter(student -> student.getFullName().toLowerCase().contains(name.toLowerCase().trim()))
-        .map(StudentProfile::toDTO)
-        .toList();    
-    }
-
-    public StudentProfileDTO findParticipantByCpf(Long eventId, String cpf) {
-        Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
-        
-        StudentProfile participant = studentProfileRepository.findByCpf(cpf);
-        if (participant == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participante não encontrado!");
-        }
-
-        if (!event.getParticipants().contains(participant)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Participante não está inscrito neste evento!");
-        }
-        return participant.toDTO();    
-    }
-
-
-    public Set<EventDTO> findEventsByStudent(String email) {
-        StudentProfile student = studentRepository.findByUserEmail(email);
-        return eventRepository.findByParticipantsContaining(student).stream()
-        .map(Event::eventToEventDTO)
-        .collect(Collectors.toSet());
-    }
-    
     @Transactional
     public void addParticipantToEvent(Event event, StudentProfile participant) {
         event.addParticipant(participant);
@@ -149,10 +105,6 @@ public class EventService {
         .map(StudentProfile::toDTO)
         .toList();
     }
-
-    
-
-    
 
 private void updateEventProperties(EventDTO eventDTO, Event entity) {
     entity.setName(eventDTO.getName());

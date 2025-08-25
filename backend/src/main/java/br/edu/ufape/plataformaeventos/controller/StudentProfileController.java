@@ -1,7 +1,7 @@
 package br.edu.ufape.plataformaeventos.controller;
 
 import java.util.List;
-import java.util.Set;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.ufape.plataformaeventos.dto.EventDTO;
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
@@ -101,14 +100,7 @@ public class StudentProfileController {
         
     }
 
-    @GetMapping("/getStudentEvents/{email}")
-        ResponseEntity<Set<EventDTO>> getEvents(@PathVariable String email){
-            Set<EventDTO> events = eventService.findEventsByStudent(email);
-            
-            return ResponseEntity.status(HttpStatus.OK).body(events);
-        }
     
-
     @GetMapping("/allProfiles")
     public ResponseEntity<List<StudentProfileDTO>> getAllStudentProfiles() {
         List<StudentProfileDTO> studentProfiles = studentProfileService.getAllStudentProfiles();
