@@ -111,6 +111,30 @@ class EventServiceTest {
     }
 
     @Test
+    void testGetAllParticipantByEventNoParticipants() {
+        Event event = new Event();
+        event.setId(1L);
+        event.setParticipants(null);
+
+        when(eventRepository.findById(1L)).thenReturn(event);
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> eventService.getAllParticipantByEvent(1L));
+
+        assertEquals("404 NOT_FOUND \"Evento não encontrado!\"", exception.getMessage());
+    }
+
+    @Test
+    void testDeleteNullEvent() {
+        when(eventRepository.findById(1L)).thenReturn(null);
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class,
+                () -> eventService.deleteEvent(null));
+
+        assertEquals("400 BAD_REQUEST \"O nome do Evento é obrigatório!\"", exception.getMessage());
+    }
+
+    @Test
     void testCreateEventSuccess() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(organizerProfileRepository.findByUserEmail("organizador@gmail.com"))
