@@ -1,7 +1,6 @@
 package br.edu.ufape.plataformaeventos.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,11 +28,11 @@ public class Certificate {
     public Certificate() {
     }
 
-    public Certificate(Event event, StudentProfile participant) {
+    public Certificate(Event event, StudentProfile participant, LocalDate issueDate, String certificateCode) {
         this.event = event;
         this.participant = participant;
-        this.issueDate = LocalDate.now();
-        this.certificateCode = UUID.randomUUID().toString();
+        this.issueDate = issueDate;
+        this.certificateCode = certificateCode;
     }
 
     public Long getId() {
