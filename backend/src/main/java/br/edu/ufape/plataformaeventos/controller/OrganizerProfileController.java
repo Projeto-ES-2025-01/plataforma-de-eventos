@@ -13,7 +13,7 @@ import br.edu.ufape.plataformaeventos.service.OrganizerProfileService;
 @RequestMapping("/organizer")
 public class OrganizerProfileController {
 
-    OrganizerProfileService organizerProfileService;
+    private final OrganizerProfileService organizerProfileService;
 
     public OrganizerProfileController (OrganizerProfileService organizerProfileService){
         this.organizerProfileService = organizerProfileService;
