@@ -19,7 +19,7 @@ public class CertificateService {
         this.certificateRepository = certificateRepository;
     }
 
-    public Certificate EmitirCertificado(Event event, StudentProfile participant) {
+    public Certificate sendCertificate(Event event, StudentProfile participant) {
         String code = gerarCodigoUnico();
         Certificate certificate = new Certificate(event, participant, LocalDate.now(), code);
         return certificateRepository.save(certificate);
