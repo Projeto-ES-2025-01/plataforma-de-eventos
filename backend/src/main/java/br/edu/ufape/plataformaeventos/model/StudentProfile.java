@@ -2,7 +2,6 @@ package br.edu.ufape.plataformaeventos.model;
 
 import java.time.LocalDate;
 
-
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.util.DegreeProgram;
 import jakarta.persistence.Column;
