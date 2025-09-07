@@ -2,7 +2,12 @@ package br.edu.ufape.plataformaeventos.controller;
 
 import java.util.List;
 
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +46,18 @@ public class CertificateController {
     public ResponseEntity<List<Certificate>> sendCertificatesForEvent(@RequestParam Long eventId) {
         List<Certificate> certificates = certificateService.sendCertificatesForEvent(eventId);
         return ResponseEntity.ok(certificates);
+    }
+
+    @GetMapping("/{id}/pdf")
+    public ResponseEntity<byte[]> getCertificatePdf(@RequestParam Long id) {
+        Certificate certificate = certificateService.findById(id);
+        byte[] pdf = certificateService.generateCertificatePDF(certificate);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDisposition(ContentDisposition.attachment().filename("certificado.pdf").build());
+
+        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
     
 
