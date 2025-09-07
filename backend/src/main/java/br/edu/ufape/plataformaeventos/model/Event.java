@@ -53,7 +53,13 @@ public class Event {
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private Set<StudentProfile> participants = new HashSet<>();
-
+    
+@ManyToMany
+@JoinTable(
+    name = "event_confirmed_participants",
+    joinColumns = @JoinColumn(name = "event_id"),
+    inverseJoinColumns = @JoinColumn(name = "student_id")
+)
     private Set<StudentProfile> confirmedParticipants = new HashSet<>();
 
 
