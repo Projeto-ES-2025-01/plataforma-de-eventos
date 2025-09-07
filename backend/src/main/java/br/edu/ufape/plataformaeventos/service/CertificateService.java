@@ -32,6 +32,11 @@ public class CertificateService {
         return certificateRepository.save(certificate);
     }
 
+    public Certificate findById(Long certificateId) {
+        return certificateRepository.findById(certificateId)
+            .orElseThrow(() -> new RuntimeException("Certificado não encontrado"));
+    }
+
     public List<Certificate> sendCertificatesForEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
@@ -42,7 +47,7 @@ public class CertificateService {
             certificatesSended.add(certificate);
         }
         return certificatesSended;
-    
+
     }
 
     public byte[] generateCertificatePDF(Certificate certificate) {
