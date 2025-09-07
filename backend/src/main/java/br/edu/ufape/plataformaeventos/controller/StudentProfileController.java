@@ -2,7 +2,6 @@ package br.edu.ufape.plataformaeventos.controller;
 
 import java.util.List;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +27,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/student") 
 public class StudentProfileController {
     
-    StudentProfileService studentProfileService;
-    EventService eventService;
+    private final StudentProfileService studentProfileService;
+    private final EventService eventService;
 
     public StudentProfileController(StudentProfileService studentProfileService,EventService eventService){
         this.eventService = eventService;

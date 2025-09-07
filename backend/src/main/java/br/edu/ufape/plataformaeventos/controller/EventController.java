@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/event")
 public class EventController {
 
-    private EventService eventService;
+    private final EventService eventService;
 
     public EventController(EventService eventService){
         this.eventService = eventService;
