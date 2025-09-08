@@ -27,6 +27,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/student") 
 public class StudentProfileController {
     
+    private static final String MENSAGEM_ESTUDANTE_NAO_ENCONTRADO =  "Estudante não encontrado";
+    private static final String MENSAGEM_EVENTO_NAO_ENCONTRADO =  "Evento não encontrado";
+
     private final StudentProfileService studentProfileService;
     private final EventService eventService;
 
@@ -72,11 +75,11 @@ public class StudentProfileController {
     public ResponseEntity<String> joinEvent(@PathVariable long eventId, @RequestBody StudentProfileDTO studentProfileDTO){
         Event event = eventService.findById(eventId);
         if(event==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_EVENTO_NAO_ENCONTRADO);
         }
         StudentProfile participant = studentProfileService.findByCPF(studentProfileDTO.getCpf());
         if(participant==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_ESTUDANTE_NAO_ENCONTRADO);
         }
         eventService.addParticipantToEvent(event,participant);
         return ResponseEntity.status(HttpStatus.OK).body("Participante adicionado ao evento com sucesso");
@@ -88,11 +91,11 @@ public class StudentProfileController {
     public ResponseEntity<String> leaveEvent(@PathVariable long eventId, @RequestBody StudentProfileDTO studentProfileDTO){
         Event event = eventService.findById(eventId);
         if(event==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_EVENTO_NAO_ENCONTRADO);
         }
         StudentProfile participant = studentProfileService.findByCPF(studentProfileDTO.getCpf());
         if(participant==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_ESTUDANTE_NAO_ENCONTRADO);
         }
         eventService.removeParticipantFromEvent(eventId,participant.getId());
         return ResponseEntity.status(HttpStatus.OK).body("Participante removido do evento com sucesso");
@@ -114,11 +117,11 @@ public class StudentProfileController {
     public ResponseEntity<String> confirmParticipation(@PathVariable long eventId, @PathVariable String StudentEmail){
         Event event = eventService.findById(eventId);
         if(event==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Evento não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_EVENTO_NAO_ENCONTRADO);
         }
         StudentProfile participant = studentProfileService.findByEmail(StudentEmail);
         if(participant==null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estudante não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_ESTUDANTE_NAO_ENCONTRADO);
         }
         studentProfileService.confirmParticipant(eventId,StudentEmail);
         return ResponseEntity.status(HttpStatus.OK).body("Participação do evento confirmada com sucesso");

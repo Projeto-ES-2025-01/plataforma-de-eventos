@@ -1,63 +1,63 @@
 article {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
+  padding: 2.5rem;
+  background-color: #444444; 
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
+  color: #ffffff; 
 }
 
 .listing-description,
 .listing-features,
 .listing-apply {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .listing-heading {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
 }
 
 .listing-location,
 .listing-date,
 .listing-time {
-  font-size: 1rem;
-  margin: 0.2rem 0;
-  color: #555;
+  font-size: 1.1rem;
+  margin: 0.4rem 0;
+  color: #cccccc;
 }
 
 .section-heading {
-  font-size: 1.4rem;
-  color: #34495e;
-  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  color: #ffffff; 
+  margin-bottom: 1.2rem;
 }
 
 ul {
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   list-style: disc;
 }
 
 li {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
 }
 
 button.primary {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   border: none;
   border-radius: 10px;
-  background-color: #3498db;
-  color: white;
+  background-color: #85cec3; 
+  color: #000000; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button.primary:hover {
-  background-color: #2980b9;
+  background-color: #72b1a8; 
 }
 
 .button-row {
@@ -73,15 +73,15 @@ button.primary:hover {
 
 @media (max-width: 600px) {
   article {
-    padding: 1.2rem;
+    padding: 1.5rem;
   }
 
   .listing-heading {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .section-heading {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 }
 

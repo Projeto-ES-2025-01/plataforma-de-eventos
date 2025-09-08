@@ -24,8 +24,8 @@ import jakarta.transaction.Transactional;
 @Service
 public class EventService {
     
-    private static final String MENSAGEM_EVENTO_NAO_ENCOTRADO =  "Evento não encontrado!";
-    private static final String MENSAGEM_ESTUDANTE_NAO_ENCOTRADO =  "Evento não encontrado!";
+    private static final String MENSAGEM_EVENTO_NAO_ENCONTRADO =  "Evento não encontrado!";
+    private static final String MENSAGEM_ESTUDANTE_NAO_ENCONTRADO =  "Estudante não encontrado!";
 
     private EventRepository eventRepository;
     private StudentProfileRepository studentRepository;
@@ -52,7 +52,7 @@ public class EventService {
     public Event updateEvent(Long idEvent, EventDTO eventDTO) {
         Event entity = eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-        MENSAGEM_EVENTO_NAO_ENCOTRADO));
+        MENSAGEM_EVENTO_NAO_ENCONTRADO));
 
         this.updateEventProperties(eventDTO, entity);
         eventRepository.save(entity);
@@ -62,7 +62,7 @@ public class EventService {
     public Event getEventDetails(Long idEvent) {
         return this.eventRepository.findById(idEvent)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, 
-        MENSAGEM_EVENTO_NAO_ENCOTRADO));
+        MENSAGEM_EVENTO_NAO_ENCONTRADO));
     }
 
     public void deleteEvent(Long idEvent ) {
@@ -70,7 +70,7 @@ public class EventService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O nome do Evento é obrigatório!");
         }
         Event entity = eventRepository.findById(idEvent)
-          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
+          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCONTRADO));
 
         eventRepository.delete(entity);
     }
@@ -83,7 +83,7 @@ public class EventService {
 
     @Transactional
     public void removeParticipantFromEvent(Long eventId, Long studentId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException(MENSAGEM_EVENTO_NAO_ENCOTRADO));
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException(MENSAGEM_EVENTO_NAO_ENCONTRADO));
         StudentProfile student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Student não encontrado!"));
 
         event.getParticipants().remove(student);
@@ -95,7 +95,7 @@ public class EventService {
 
     public List<StudentProfileDTO> getAllParticipantByEvent (Long eventId){
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCONTRADO));
 
         Set<StudentProfile> participants = event.getParticipants();
         if (participants == null) {
@@ -124,14 +124,14 @@ private void updateEventProperties(EventDTO eventDTO, Event entity) {
 
     public Event findById(Long eventId) {
         return eventRepository.findById(eventId)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCONTRADO));
     
    
 }
 
 public List<StudentProfileDTO> getAllConfirmedParticipantByEvent (Long eventId){
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCONTRADO));
 
         Set<StudentProfile> participants = event.getConfirmedParticipants();
         if (participants == null || participants.isEmpty()) {
