@@ -1,27 +1,26 @@
-/* Estilo da seção de lista de eventos para estudantes */
+
 .event-list {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  background-color: #444444; 
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', sans-serif;
 }
 
 .event-list h2 {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #ffffff; 
 }
 
 .event-list button {
   margin-bottom: 1rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  background-color: #3498db;
-  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: #85cec3; 
+  color: #000000; 
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -29,74 +28,75 @@
 }
 
 .event-list button:hover {
-  background-color: #2980b9;
+  background-color: #72b1a8; 
 }
 
 .event-list form {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 1.2rem;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .event-list input {
-  padding: 0.7rem;
+  padding: 0.8rem;
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
   flex: 1 1 200px;
-  background-color: #f9f9f9;
+  background-color: #333333; 
+  color: #ffffff;
 }
 
 button.primary {
-  background-color: #2ecc71;
-  color: white;
+  background-color: #85cec3; 
+  color: #000000; 
   border: none;
-  padding: 0.7rem 1.2rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 8px;
   cursor: pointer;
 }
 
 button.primary:hover {
-  background-color: #27ae60;
+  background-color: #72b1a8; 
 }
 
-/* Resultados para estudantes */
+
 .resultsstudents {
   max-width: 1000px;
   margin: 2rem auto;
-  padding: 1.5rem;
+  padding: 0;
   display: grid;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
-/* Resultados para organizadores */
+
 .resultsorganizer {
   max-width: 1000px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  background-color: #fefefe;
+  padding: 2.5rem;
+  background-color: #444444; 
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .resultsorganizer h2 {
-  font-size: 1.6rem;
-  margin-bottom: 1rem;
-  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff; 
 }
 
 app-evento {
   display: block;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background-color: rgb(238, 234, 234);
+  margin-bottom: 0;
+  padding: 1.5rem;
+  background-color: #333333; 
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Responsividade */
+
 @media (max-width: 768px) {
   .event-list form {
     flex-direction: column;
@@ -106,5 +106,9 @@ app-evento {
   .event-list input,
   .event-list button {
     width: 100%;
+  }
+
+  .resultsstudents, .resultsorganizer {
+    padding: 1rem;
   }
 }

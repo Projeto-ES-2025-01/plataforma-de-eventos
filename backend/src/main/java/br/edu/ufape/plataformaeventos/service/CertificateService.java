@@ -71,6 +71,15 @@ public class CertificateService {
         return UUID.randomUUID().toString();
     }
 
+    public Long getIdCertificate(Event event,StudentProfile participante){
+        Certificate certificado = certificateRepository.findByEventAndParticipant(event, participante);
+        if(certificado == null){
+            throw new RuntimeException("Certificado não encontrado");
+        }
+        Long certificadoId = certificado.getId();
+        return certificadoId;
+    }
+
     private String buildCertificateHTML(Certificate certificate) {
          String template = """
         <html>
