@@ -15,4 +15,5 @@ public interface CertificateRepository extends JpaRepository<Certificate, Long> 
     List<Certificate> findByEventId(Event event);
     Certificate findByParticipantAndEventId(Event event, StudentProfile participant);
     Certificate findByCertificateCode(String certificateCode);
+    Certificate findByEventAndParticipant(Event event, StudentProfile participant);
 }
