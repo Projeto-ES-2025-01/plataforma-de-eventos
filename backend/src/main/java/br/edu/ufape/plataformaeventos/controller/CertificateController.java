@@ -36,9 +36,9 @@ public class CertificateController {
     }
 
     @PostMapping("/send")
-    public Certificate sendCertificate(@RequestParam Long idEvent, @RequestParam String cpf) {
+    public Certificate sendCertificate(@RequestParam Long idEvent, @RequestParam String email) {
         Event evento = eventService.findById(idEvent);
-        StudentProfile participante = studentProfileService.findByCPF(cpf);
+        StudentProfile participante = studentProfileService.findByEmail(email);
         return certificateService.sendCertificate(evento, participante);
     }
 
@@ -47,6 +47,12 @@ public class CertificateController {
         List<Certificate> certificates = certificateService.sendCertificatesForEvent(eventId);
         return ResponseEntity.ok(certificates);
     }
+
+    @GetMapping("/getByParticipantEventId}")
+    public Certificate getByParticipantAndEventId(@RequestParam Event event, @RequestParam StudentProfile participant) {
+        return certificateService.findByParticipantAndEventId(event, participant);
+    }
+    
 
     @GetMapping("/{id}/pdf")
     public ResponseEntity<byte[]> getCertificatePdf(@RequestParam Long id) {
