@@ -15,9 +15,23 @@
 
   <section class="listing-apply">
   <h2 class="section-heading">Inscrição</h2>
-  <button class="primary" 
-          (click)="inscrito ? unsubscribe() : eventApplication()">
-    {{ inscrito ? 'Cancelar inscrição' : 'Inscrever-se' }}
-  </button>
+  <div class="button-row">
+    <button class="primary" 
+            (click)="inscrito ? unsubscribe() : eventApplication()">
+      {{ inscrito ? 'Cancelar inscrição' : 'Inscrever-se' }}
+    </button>
+    <button class="primary" 
+            *ngIf="inscrito"
+            (click)="confirmPresence()" [disabled]="presenceBoolean">
+      Confirmar presença
+    </button>
+    <button class="primary" 
+            *ngIf="inscrito"
+            [disabled]="!presenceBoolean"
+            (click)="requestCertificate()">
+      Solicitar certificado
+    </button>
+  </div>
 </section>
 </article>
+<a routerLink="/home">Voltar para home</a>

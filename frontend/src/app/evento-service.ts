@@ -109,4 +109,81 @@ export class EventoService {
       throw new Error('Erro ao deletar evento');
     }
   }
+
+  async confirmParticipation(eventoId: number, studentEmail: string): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/student/confirmparticipation/${studentEmail}/${eventoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    });
+    if (!response.ok) {
+      throw new Error('Erro ao confirmar participação');
+    }
+  }
+
+  async generateCertificate(eventoId: number): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/certificate/sendAll/${eventoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    });
+  }
+
+  async getCertificateId(studentEmail: string, eventoId: number): Promise<Number| null> {
+    const response = await fetch(`${this.apiUrl}/certificate/getByParticipantEventId/${eventoId}/${studentEmail}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Erro ao buscar ID do certificado');
+    }
+    return response.json();
+  }
+
+  async getCertificate(CertificateId: number): Promise<Blob> {
+    const response = await fetch(`${this.apiUrl}/certificate/${CertificateId}/pdf`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Erro ao buscar certificado');
+    }
+    return response.blob();
+  }
+
+  async downloadCertificate(studentEmail: string, eventoId: number) {
+  try {
+    // Primeiro, obtenha o ID do certificado
+    const certificateId = await this.getCertificateId(studentEmail, eventoId);
+    if (!certificateId) {
+      alert('Certificado não encontrado.');
+      return;
+    }
+    // Agora, obtenha o PDF como Blob
+    const pdfBlob = await this.getCertificate(Number(certificateId));
+    // Crie uma URL para o Blob
+    const url = window.URL.createObjectURL(pdfBlob);
+    // Crie um link temporário para download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'certificado.pdf';
+    document.body.appendChild(a);
+    a.click();
+    // Limpe o link e a URL
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    alert('Erro ao baixar certificado');
+    console.error(error);
+  }
+  }
 }
+  

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EventoService } from '../evento-service';
 import { StudentProfileDTO } from '../auth/user';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-ver-participantes',
   templateUrl: './ver-inscricoes.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   styleUrls: ['./ver-inscricoes.css'],
   standalone: true,
 })
@@ -41,4 +41,17 @@ export class VerInscricaoComponent {
       return nomeCond && cpfCond;
     });
   }
+    CertificateBoolean = false;
+    async generateCertificates() {
+    if (confirm('Gerar os certificados para todos os participantes presentes?')) {
+      try {
+        await this.eventoService.generateCertificate(Number(this.route.snapshot.params['id']));
+        alert('Certificados gerados e enviados com sucesso!');
+        this.CertificateBoolean = true;
+      } catch (error) {
+        console.error('Erro ao gerar certificados:', error);
+        alert('Erro ao gerar certificados');
+      }
+    }
+   }
 }
