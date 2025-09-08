@@ -36,9 +36,9 @@ public class CertificateController {
     }
 
     @PostMapping("/send")
-    public Certificate sendCertificate(@RequestParam Long idEvent, @RequestParam String cpf) {
+    public Certificate sendCertificate(@RequestParam Long idEvent, @RequestParam String email) {
         Event evento = eventService.findById(idEvent);
-        StudentProfile participante = studentProfileService.findByCPF(cpf);
+        StudentProfile participante = studentProfileService.findByEmail(email);
         return certificateService.sendCertificate(evento, participante);
     }
 
