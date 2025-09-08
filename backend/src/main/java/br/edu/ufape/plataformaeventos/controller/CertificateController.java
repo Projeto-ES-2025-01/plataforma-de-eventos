@@ -49,8 +49,8 @@ public class CertificateController {
     }
 
     @GetMapping("/getByParticipantEventId}")
-    public Certificate getByParticipantAndEventId(@RequestParam Long eventId, @RequestParam Long ParticipantId) {
-        return certificateService.findByParticipantAndEventId(eventId, ParticipantId);
+    public Certificate getByParticipantAndEventId(@RequestParam Event event, @RequestParam StudentProfile participant) {
+        return certificateService.findByParticipantAndEventId(event, participant);
     }
     
 

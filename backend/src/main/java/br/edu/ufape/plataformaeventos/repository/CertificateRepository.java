@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.edu.ufape.plataformaeventos.model.Certificate;
+import br.edu.ufape.plataformaeventos.model.Event;
+import br.edu.ufape.plataformaeventos.model.StudentProfile;
 
 public interface CertificateRepository extends JpaRepository<Certificate, Long> {
-    List<Certificate> findByParticipantId(Long participantId);
-    List<Certificate> findByEventId(Long eventId);
-    Certificate findByParticipantAndEventId(Long eventId, Long participantId);
+    List<Certificate> findByParticipant(StudentProfile participant);
+    List<Certificate> findByEventId(Event event);
+    Certificate findByParticipantAndEventId(Event event, StudentProfile participant);
     Certificate findByCertificateCode(String certificateCode);
 }
