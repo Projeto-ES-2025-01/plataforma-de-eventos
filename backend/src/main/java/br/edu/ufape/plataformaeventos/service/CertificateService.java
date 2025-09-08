@@ -37,6 +37,10 @@ public class CertificateService {
             .orElseThrow(() -> new RuntimeException("Certificado não encontrado"));
     }
 
+    public Certificate findByParticipantAndEventId(Long eventId, Long participantId) {
+        return certificateRepository.findByParticipantAndEventId(eventId, participantId);
+    }
+
     public List<Certificate> sendCertificatesForEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));

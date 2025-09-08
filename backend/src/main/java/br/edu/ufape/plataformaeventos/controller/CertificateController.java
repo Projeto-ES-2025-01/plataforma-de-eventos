@@ -48,6 +48,12 @@ public class CertificateController {
         return ResponseEntity.ok(certificates);
     }
 
+    @GetMapping("/getByParticipantEventId}")
+    public Certificate getByParticipantAndEventId(@RequestParam Long participantId, @RequestParam Long eventId) {
+        return certificateService.findByParticipantAndEventId(participantId, eventId);
+    }
+    
+
     @GetMapping("/{id}/pdf")
     public ResponseEntity<byte[]> getCertificatePdf(@RequestParam Long id) {
         Certificate certificate = certificateService.findById(id);
