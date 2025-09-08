@@ -62,7 +62,7 @@ button.primary:hover {
 
 .button-row {
   display: flex;
-  gap: 26rem; /* space between buttons */
+  gap: 10rem; /* space between buttons */
   align-items: center;
 }
 
@@ -99,4 +99,10 @@ a {
   font-size: 1rem;
   transition: background-color 0.2s ease-in-out;
   z-index: 100;
+}
+
+button.primary:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  opacity: 0.7;
 }

@@ -96,6 +96,24 @@ export class eventDetails {
     return now >= eventDate;
   }
 
+  requestCertificate(): void {
+    const email = this.authService.getUserEmail();
+    if (!email) {
+      alert('Erro: Email do usuário não encontrado.');
+      return;
+    }
+    const eventoId = Number(this.route.snapshot.params['id']);
+    this.eventoService.downloadCertificate(email, eventoId)
+      .then(() => {
+        console.log('Tentando baixar certificado...');
+      })
+      .catch((error) => {
+        console.error('Erro ao baixar certificado:', error);
+        alert('Erro ao baixar certificado. Verifique se você está inscrito e se o evento já ocorreu.');
+      });
+  }
+
+  presenceBoolean = false;
   confirmPresence() {
   const email = this.authService.getUserEmail();
   if (!email) {
@@ -112,6 +130,7 @@ export class eventDetails {
       this.eventoService.confirmParticipation(eventoId, email )
         .then(() => {
           alert('Presença confirmada com sucesso!');
+          this.presenceBoolean = true;
         })
     })
   }

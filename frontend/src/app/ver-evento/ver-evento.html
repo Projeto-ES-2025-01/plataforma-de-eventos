@@ -22,8 +22,14 @@
     </button>
     <button class="primary" 
             *ngIf="inscrito"
-            (click)="confirmPresence()">
+            (click)="confirmPresence()" [disabled]="presenceBoolean">
       Confirmar presença
+    </button>
+    <button class="primary" 
+            *ngIf="inscrito"
+            [disabled]="!presenceBoolean"
+            (click)="requestCertificate()">
+      Solicitar certificado
     </button>
   </div>
 </section>
