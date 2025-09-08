@@ -80,13 +80,13 @@ class AuthControllerTest {
 
 @Test
 void deveRetornarUnauthorizedEmLoginInvalido() throws Exception {
-    AuthDTO authDTO = new AuthDTO("invalid@example.com", "wrong-password");
+    AuthDTO auxAuthDTO = new AuthDTO("invalid@example.com", "wrong-password");
     
     when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
         .thenThrow(new BadCredentialsException("Credenciais inválidas"));
     assertThrows(BadCredentialsException.class, () -> {
 
-        authController.login(authDTO);
+        authController.login(auxAuthDTO);
     });
 
     verify(authenticationManager, times(1)).authenticate(any(UsernamePasswordAuthenticationToken.class));
