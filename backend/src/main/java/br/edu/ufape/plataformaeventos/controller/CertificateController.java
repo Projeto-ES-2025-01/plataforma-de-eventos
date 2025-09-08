@@ -48,8 +48,8 @@ public class CertificateController {
         return ResponseEntity.ok(certificates);
     }
 
-    @GetMapping("/getByParticipantEventId}")
-    public Certificate getByParticipantAndEventId(@RequestParam Event event, @RequestParam StudentProfile participant) {
+    @GetMapping("/getByParticipantAndEvent/{eventId}/{participantId}")
+    public Certificate getByParticipantAndEventId(@PathVariable Event event, @PathVariable StudentProfile participant) {
         return certificateService.findByParticipantAndEventId(event, participant);
     }
     
