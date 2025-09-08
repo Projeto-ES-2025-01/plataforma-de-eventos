@@ -27,8 +27,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/student") 
 public class StudentProfileController {
     
-    private static final String MENSAGEM_ESTUDANTE_NAO_ENCONTRADO =  "Estudante não encontrado!";
-    private static final String MENSAGEM_EVENTO_NAO_ENCONTRADO =  "Evento não encontrado!";
+    private static final String MENSAGEM_ESTUDANTE_NAO_ENCONTRADO =  "Estudante não encontrado";
+    private static final String MENSAGEM_EVENTO_NAO_ENCONTRADO =  "Evento não encontrado";
 
     private final StudentProfileService studentProfileService;
     private final EventService eventService;
