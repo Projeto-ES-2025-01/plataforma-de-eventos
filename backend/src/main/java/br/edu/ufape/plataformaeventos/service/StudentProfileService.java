@@ -98,6 +98,10 @@ public class StudentProfileService {
         userRepository.deleteByEmail(email);
     }
 
+    public StudentProfile findByEmail(String email){
+        return studentProfileRepository.findByUserEmail(email);
+    }
+
     public StudentProfile findByCPF(String cpf){
         return studentProfileRepository.findByCpf(cpf);
     }
@@ -108,11 +112,11 @@ public class StudentProfileService {
                 .toList();
     }
 
-    public void confirmParticipant(Long eventId, String StudentCPF){
+    public void confirmParticipant(Long eventId, String StudentEmail){
     Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado"));
-    StudentProfile student = studentProfileRepository.findByCpf(StudentCPF);
-    if (student == null ||student.getCpf() != StudentCPF){
+    StudentProfile student = studentProfileRepository.findByUserEmail(StudentEmail);
+    if (student == null){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudante não encontrado!");
     }
     event.addConfirmedParticipant(student);
