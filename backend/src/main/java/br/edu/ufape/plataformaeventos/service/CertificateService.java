@@ -14,6 +14,7 @@ import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
 import br.edu.ufape.plataformaeventos.repository.CertificateRepository;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CertificateService {
@@ -34,7 +35,7 @@ public class CertificateService {
 
     public Certificate findById(Long certificateId) {
         return certificateRepository.findById(certificateId)
-            .orElseThrow(() -> new RuntimeException("Certificado não encontrado"));
+            .orElseThrow(() -> new EntityNotFoundException("Certificado não encontrado"));
     }
 
     public Certificate findByParticipantAndEventId(Event event, StudentProfile participant) {
@@ -43,7 +44,7 @@ public class CertificateService {
 
     public List<Certificate> sendCertificatesForEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
-            .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
+            .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));
         
         List<Certificate> certificatesSended = new ArrayList<>();
         for (StudentProfile participant : event.getConfirmedParticipants()) {
@@ -63,7 +64,7 @@ public class CertificateService {
             renderer.createPDF(outputStream);
             return outputStream.toByteArray();
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao gerar PDF do certificado", e);
+            throw new IllegalStateException("Erro ao gerar PDF do certificado", e);
         }
     }
  
@@ -74,7 +75,7 @@ public class CertificateService {
     public Long getIdCertificate(Event event,StudentProfile participante){
         Certificate certificado = certificateRepository.findByEventAndParticipant(event, participante);
         if(certificado == null){
-            throw new RuntimeException("Certificado não encontrado");
+            throw new EntityNotFoundException("Certificado não encontrado");
         }
         Long certificadoId = certificado.getId();
         return certificadoId;
