@@ -1,7 +1,7 @@
 # Plataforma de Gestão de Eventos Acadêmicos e Culturais
 
 ## 👥 Integrantes
-[Ryan Marques](https://github.com/Ryan079) | [Ruan Diego](https://github.com/Ruan-Alves-Paz) | [Guilherme Gama](https://github.com/GuilhermeAGama) | [José Walter](https://github.com/JWalterSobral) | [Diogo Ramos](https://github.com/DiogoRCSantana) | [Renato Beltrão](https://github.com/RenatoBeltrao) 
+[Ryan Marques](https://github.com/Ryan079) | [Ruan Diego](https://github.com/Ruan-Alves-Paz) | [Guilherme Gama](https://github.com/GuilhermeAGama) | [Renato Beltrão](https://github.com/RenatoBeltrao) 
 
 
 ## :page_with_curl: Sobre o Projeto
