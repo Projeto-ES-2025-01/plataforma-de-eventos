@@ -109,4 +109,44 @@ export class EventoService {
       throw new Error('Erro ao deletar evento');
     }
   }
+
+  async confirmParticipation(eventoId: number, studentEmail: string): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/student/confirmparticipation/${studentEmail}/${eventoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    });
+    if (!response.ok) {
+      throw new Error('Erro ao confirmar participação');
+    }
+  }
+
+  async generateCertificate(eventoId: number): Promise<void> {
+    const response = await fetch(`${this.apiUrl}/certificate/sendAll/${eventoId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({})
+    });
+  }
+
+  async getCertificateId(studentEmail: string, eventoId: number): Promise<Blob | null> {
+    try {
+      const response = await fetch(`${this.apiUrl}/certificate/`, {
+        method: "GET"
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao buscar certificado');
+      }
+
+      return response.blob();
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 }

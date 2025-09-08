@@ -5,6 +5,11 @@
     <input type="text" placeholder="Filtrar por nome" [(ngModel)]="filterName" name="nameFilter" />
     <input type="text" placeholder="Filtrar por CPF" [(ngModel)]="filterCpf" name="cpfFilter" />
     <button class="primary" type="button" (click)="filtrar()">Buscar</button>
+    <button class="primary" 
+        [disabled]="CertificateBoolean" 
+        (click)="generateCertificates()">
+  Gerar Certificados
+</button>
   </form>
 </div>
 
@@ -13,3 +18,4 @@
     Nome: {{ participante.fullName }} - CPF: {{ participante.cpf }}
   </li>
 </ul>
+<a routerLink="/home">Voltar para home</a>

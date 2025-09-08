@@ -63,7 +63,7 @@ export class eventDetails {
   if (!email) {
     alert('Erro: Email do usuário não encontrado.');
     return;
-  }
+    }
 
   const eventoId = Number(this.route.snapshot.params['id']);
   this.eventoService.getEstudanteByEmail(email)
@@ -85,5 +85,34 @@ export class eventDetails {
       console.error(err);
       alert('Erro ao buscar estudante.');
     });
+  }
+
+  eventOngoing(): boolean {
+    if (!this.evento) return false;
+    const [day, month, year] = this.evento.date.split('/').map(Number);
+    const [hours, minutes] = this.evento.time.split(':').map(Number);
+    const eventDate = new Date(year, month - 1, day, hours, minutes);
+    const now = new Date();
+    return now >= eventDate;
+  }
+
+  confirmPresence() {
+  const email = this.authService.getUserEmail();
+  if (!email) {
+    alert('Erro: Email do usuário não encontrado.');
+    return;
+    }
+  const eventoId = Number(this.route.snapshot.params['id']);
+  this.eventoService.getEstudanteByEmail(email)
+    .then((studentProfile) => {
+      if (!studentProfile) {
+        alert('Estudante não encontrado.');
+        return;
+      }
+      this.eventoService.confirmParticipation(eventoId, email )
+        .then(() => {
+          alert('Presença confirmada com sucesso!');
+        })
+    })
   }
 }

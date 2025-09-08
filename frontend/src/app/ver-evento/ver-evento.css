@@ -60,6 +60,17 @@ button.primary:hover {
   background-color: #2980b9;
 }
 
+.button-row {
+  display: flex;
+  gap: 26rem; /* space between buttons */
+  align-items: center;
+}
+
+.right-align {
+  text-align: right;
+  margin-top: 10px; /* optional, for spacing */
+}
+
 @media (max-width: 600px) {
   article {
     padding: 1.2rem;
@@ -72,4 +83,20 @@ button.primary:hover {
   .section-heading {
     font-size: 1.2rem;
   }
+}
+
+a {
+  display: inline-block;
+  position: fixed;
+  left: 1px;
+  bottom: 1px;
+  margin: 0;
+  padding: 0.6rem 1.2rem;
+  background-color: #f5eeed;
+  color: rgb(20, 19, 19);
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+  z-index: 100;
 }
