@@ -2,7 +2,9 @@ package br.edu.ufape.plataformaeventos.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.dto.UserDTO;
@@ -105,4 +107,14 @@ public class StudentProfileService {
                 .map(StudentProfile::toDTO)
                 .toList();
     }
+
+    public void confirmParticipant(Long eventId, String StudentCPF){
+    Event event = eventRepository.findById(eventId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado"));
+    StudentProfile student = studentProfileRepository.findByCpf(StudentCPF);
+    if (student == null ||student.getCpf() != StudentCPF){
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudante não encontrado!");
+    }
+    event.addConfirmedParticipant(student);
+}
 }

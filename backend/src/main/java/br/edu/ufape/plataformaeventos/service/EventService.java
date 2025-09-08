@@ -26,6 +26,7 @@ import jakarta.transaction.Transactional;
 public class EventService {
     
     private static final String MENSAGEM_EVENTO_NAO_ENCOTRADO =  "Evento não encontrado!";
+    private static final String MENSAGEM_ESTUDANTE_NAO_ENCOTRADO =  "Evento não encontrado!";
 
     private EventRepository eventRepository;
     private StudentProfileRepository studentRepository;
@@ -129,4 +130,16 @@ private void updateEventProperties(EventDTO eventDTO, Event entity) {
    
 }
 
+public List<StudentProfileDTO> getAllConfirmedParticipantByEvent (Long eventId){
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, MENSAGEM_EVENTO_NAO_ENCOTRADO));
+
+        Set<StudentProfile> participants = event.getConfirmedParticipants();
+        if (participants == null || participants.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Não há confirmados.");
+        }
+        return participants.stream()
+        .map(StudentProfile::toDTO)
+        .toList();
+    }
 }

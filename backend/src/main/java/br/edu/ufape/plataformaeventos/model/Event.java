@@ -53,6 +53,15 @@ public class Event {
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private Set<StudentProfile> participants = new HashSet<>();
+    
+@ManyToMany
+@JoinTable(
+    name = "event_confirmed_participants",
+    joinColumns = @JoinColumn(name = "event_id"),
+    inverseJoinColumns = @JoinColumn(name = "student_id")
+)
+    private Set<StudentProfile> confirmedParticipants = new HashSet<>();
+
 
     public Event() {
     }
@@ -149,6 +158,18 @@ public class Event {
         eventDTO.setDescription(this.description);
         eventDTO.setIdOrganizer(this.organizer.getId());
         return eventDTO;
+    }
+
+    public Set<StudentProfile> getConfirmedParticipants() {
+        return confirmedParticipants;
+    }
+
+    public void setConfirmedParticipants(Set<StudentProfile> confirmedParticipants) {
+        this.confirmedParticipants = confirmedParticipants;
+    }
+
+    public void addConfirmedParticipant(StudentProfile participant) {
+        this.confirmedParticipants.add(participant);
     }
 
 }
