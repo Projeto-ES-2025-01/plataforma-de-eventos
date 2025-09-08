@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufape.plataformaeventos.model.Certificate;
@@ -35,15 +35,15 @@ public class CertificateController {
         this.studentProfileService = studentProfileService;
     }
 
-    @PostMapping("/send")
-    public Certificate sendCertificate(@RequestParam Long idEvent, @RequestParam String email) {
+      @PostMapping("/send/{idEvent}/{email}")
+    public Certificate sendCertificate(@PathVariable Long idEvent, @PathVariable String email) {
         Event evento = eventService.findById(idEvent);
         StudentProfile participante = studentProfileService.findByEmail(email);
         return certificateService.sendCertificate(evento, participante);
     }
 
-    @PostMapping("/sendAll")
-    public ResponseEntity<List<Certificate>> sendCertificatesForEvent(@RequestParam Long eventId) {
+    @PostMapping("/sendAll/{eventId}")
+    public ResponseEntity<List<Certificate>> sendCertificatesForEvent(@PathVariable Long eventId) {
         List<Certificate> certificates = certificateService.sendCertificatesForEvent(eventId);
         return ResponseEntity.ok(certificates);
     }
@@ -55,7 +55,7 @@ public class CertificateController {
     
 
     @GetMapping("/{id}/pdf")
-    public ResponseEntity<byte[]> getCertificatePdf(@RequestParam Long id) {
+    public ResponseEntity<byte[]> getCertificatePdf(@PathVariable Long id) {
         Certificate certificate = certificateService.findById(id);
         byte[] pdf = certificateService.generateCertificatePDF(certificate);
 
