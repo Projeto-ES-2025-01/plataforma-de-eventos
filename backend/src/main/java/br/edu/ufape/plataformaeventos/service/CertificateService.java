@@ -42,7 +42,7 @@ public class CertificateService {
             .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
         
         List<Certificate> certificatesSended = new ArrayList<>();
-        for (StudentProfile participant : event.getParticipants()) {
+        for (StudentProfile participant : event.getConfirmedParticipants()) {
             Certificate certificate = sendCertificate(event, participant);
             certificatesSended.add(certificate);
         }
