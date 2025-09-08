@@ -112,10 +112,10 @@ public class StudentProfileService {
                 .toList();
     }
 
-    public void confirmParticipant(Long eventId, String StudentEmail){
+    public void confirmParticipant(Long eventId, String studentEmail){
     Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado"));
-    StudentProfile student = studentProfileRepository.findByUserEmail(StudentEmail);
+    StudentProfile student = studentProfileRepository.findByUserEmail(studentEmail);
     if (student == null){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Estudante não encontrado!");
     }

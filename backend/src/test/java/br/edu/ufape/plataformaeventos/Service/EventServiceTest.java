@@ -1,7 +1,6 @@
 package br.edu.ufape.plataformaeventos.Service;
 
 import br.edu.ufape.plataformaeventos.dto.EventDTO;
-import br.edu.ufape.plataformaeventos.dto.StudentProfileDTO;
 import br.edu.ufape.plataformaeventos.model.Event;
 import br.edu.ufape.plataformaeventos.model.OrganizerProfile;
 import br.edu.ufape.plataformaeventos.model.StudentProfile;
@@ -9,7 +8,6 @@ import br.edu.ufape.plataformaeventos.model.User;
 import br.edu.ufape.plataformaeventos.repository.EventRepository;
 import br.edu.ufape.plataformaeventos.repository.OrganizerProfileRepository;
 import br.edu.ufape.plataformaeventos.repository.UserRepository;
-import br.edu.ufape.plataformaeventos.repository.StudentProfileRepository;
 import br.edu.ufape.plataformaeventos.service.EventService;
 import br.edu.ufape.plataformaeventos.util.UserRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -72,17 +70,6 @@ class EventServiceTest {
         eventService.addParticipantToEvent(event, student);
         assertTrue(event.getParticipants().contains(student));
     }
-
-    /*@Test
-    void testFindByName() {
-        Event event = new Event();
-        event.setName("Festa");
-        when(eventRepository.findByNameIgnoreCase("Festa")).thenReturn(Collections.singletonList(event));
-
-        List<Event> events = eventService.findByName("Festa");
-        assertEquals(1, events.size());
-        assertEquals("Festa", events.get(0).getName());
-    }*/
 
     @Test
     void testDeleteEventSuccess() {
