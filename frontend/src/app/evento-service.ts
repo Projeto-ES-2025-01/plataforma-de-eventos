@@ -169,8 +169,12 @@ export class EventoService {
     if (!response.ok) {
       throw new Error('Erro ao verificar certificado');
     }
-    const data = await response.json();
-    return data.valid;
+    if (response.status === 200) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   async downloadCertificate(studentEmail: string, eventoId: number) {

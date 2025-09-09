@@ -21,13 +21,10 @@
       {{ inscrito ? 'Cancelar inscrição' : 'Inscrever-se' }}
     </button>
     <button class="primary" 
-            *ngIf="inscrito"
-            (click)="confirmPresence()" [disabled]="presenceBoolean">
+            (click)="confirmPresence()" [disabled]="presenceBoolean || !inscrito">
       Confirmar presença
     </button>
     <button class="primary" 
-            *ngIf="inscrito"
-            [disabled]="!presenceBoolean"
             (click)="requestCertificate()">
       Solicitar certificado
     </button>

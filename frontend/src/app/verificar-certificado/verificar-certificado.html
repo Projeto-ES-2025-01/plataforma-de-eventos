@@ -1,11 +1,11 @@
-<div>
+<div class="verificar-certificado-container">
   <h2>Verificar Certificado</h2>
-    <input [(ngModel)]="certificateCode" placeholder="Código do certificado" />
+  <input [(ngModel)]="certificateCode" type="text" placeholder="Código do certificado" />
   <button (click)="verifyCertificate()">Verificar</button>
-    <div *ngIf="certificateValid !== null">
-        <p *ngIf="certificateValid; else invalidTemplate">Certificado Válido!</p>
-        <ng-template #invalidTemplate>
-            <p>Certificado Inválido!</p>
-        </ng-template>
-    </div>
+  <div *ngIf="certificateValid !== null">
+    <p class="result-message" [ngClass]="certificateValid ? 'valid' : 'invalid'">
+      {{ certificateValid ? 'Certificado Válido!' : 'Certificado Inválido!' }}
+    </p>
+  </div>
+</div>
 <a routerLink="/home">Voltar para home</a>
