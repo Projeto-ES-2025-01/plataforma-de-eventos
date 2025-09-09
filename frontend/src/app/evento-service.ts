@@ -159,6 +159,20 @@ export class EventoService {
     return response.blob();
   }
 
+  async verifyCertificate(certificateCode: string): Promise<boolean> {
+    const response = await fetch(`${this.apiUrl}/certificate/verify/${certificateCode}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Erro ao verificar certificado');
+    }
+    const data = await response.json();
+    return data.valid;
+  }
+
   async downloadCertificate(studentEmail: string, eventoId: number) {
   try {
     // Primeiro, obtenha o ID do certificado

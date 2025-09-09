@@ -58,6 +58,15 @@ button.primary {
   cursor: pointer;
 }
 
+a {
+  background-color: #85cec3; 
+  color: #000000; 
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 button.primary:hover {
   background-color: #72b1a8; 
 }
