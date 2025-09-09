@@ -1,3 +1,78 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right bottom, #2c2c2c, #1c1c1c);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.verificar-certificado-container {
+  background: #444444;
+  border-radius: 16px;
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  color: #fff;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #fff;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  border: 1.5px solid #85cec3;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  background: #222;
+  color: #fff;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #6bb3a7;
+  box-shadow: 0 0 0 2px #85cec344;
+  background: #181818;
+}
+
+
+button {
+  background-color: #85cec3;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+  transition: background 0.2s;
+}
+
+button:hover {
+  background-color: #6bb3a7;
+}
+
+.result-message {
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+  font-weight: bold;
+}
+
+.result-message.valid {
+  color: #85cec3;
+}
+
+.result-message.invalid {
+  color: #ff6b6b;
+}
+
 a {
   display: inline-block;
   position: fixed;

@@ -18,13 +18,15 @@ export class VerificarCertificado {
   certificateValid: boolean | null = null;
 
   verifyCertificate() {
-  console.log('Sending code:', this.certificateCode); // Should print the code
+  console.log('Sending code:', this.certificateCode);
   this.certificateValid = null;
-  this.eventoService.verifyCertificate(this.certificateCode).then(valid => {
-    this.certificateValid = valid;
-  }).catch(error => {
-    console.error(error);
-    this.certificateValid = false;
-  });
+  this.eventoService.verifyCertificate(this.certificateCode)
+    .then(result => {
+      this.certificateValid = result === true;
+    })
+    .catch(error => {
+      console.error(error);
+      this.certificateValid = false;
+    });
 }
 }
