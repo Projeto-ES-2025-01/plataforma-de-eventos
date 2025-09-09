@@ -5,16 +5,18 @@ import { EventoService } from '../evento-service';
 import { EventoInterface } from '../eventoInterface';
 import { AuthService } from '../auth/auth';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, EventoComponent, RouterModule],
+  imports: [CommonModule, EventoComponent, RouterModule,],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
 export class HomeComponent {
+  router = inject(Router);
   authService = inject(AuthService);
   EventoList: EventoInterface[] = [];
   eventoService: EventoService = inject (EventoService);

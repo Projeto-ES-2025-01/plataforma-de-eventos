@@ -1,0 +1,11 @@
+<div>
+  <h2>Verificar Certificado</h2>
+    <input [(ngModel)]="certificateCode" placeholder="Código do certificado" />
+  <button (click)="verifyCertificate()">Verificar</button>
+    <div *ngIf="certificateValid !== null">
+        <p *ngIf="certificateValid; else invalidTemplate">Certificado Válido!</p>
+        <ng-template #invalidTemplate>
+            <p>Certificado Inválido!</p>
+        </ng-template>
+    </div>
+<a routerLink="/home">Voltar para home</a>

@@ -11,6 +11,7 @@ import { eventDetails } from './ver-evento/ver-evento';
 import { EditarEventoComponent } from './editar-evento/editar-evento';
 import { VerInscricaoComponent } from './ver-inscricoes/ver-inscricoes';
 import { EditarStudentComponent } from './editar-perfil/editar-perfil';
+import { VerificarCertificado } from './verificar-certificado/verificar-certificado';
 
 export const routes: Routes = [
     { 
@@ -30,6 +31,10 @@ export const routes: Routes = [
     },
     { 
         path: 'home', component: HomeComponent, canActivate: [authGuard], title: 'Home' 
+    },
+    {
+        path: 'verificar-certificado', component: VerificarCertificado, canActivate: [authGuard], title: 'Verificar Certificado',
+        data: { role: 'STUDENT' }
     },
     { 
         path: 'criar-evento', component: CriarEventoComponent, canActivate: [authGuard], title: 'Criar evento',
