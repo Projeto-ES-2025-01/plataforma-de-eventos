@@ -8,6 +8,14 @@ section {
   font-family: Segoe UI, sans-serif;
 }
 
+.login-logo {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  width: 320px;      /* Fixed width for the logo */
+  max-width: 100%;   /* Prevents overflow */
+  height: auto;
+}
+
 .login-container{
     background-color: #444444; 
     border-radius: 20px;

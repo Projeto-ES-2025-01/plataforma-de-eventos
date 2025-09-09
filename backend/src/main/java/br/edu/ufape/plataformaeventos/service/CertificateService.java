@@ -81,8 +81,7 @@ public class CertificateService {
         if(certificado == null){
             throw new EntityNotFoundException("Certificado não encontrado");
         }
-        Long certificadoId = certificado.getId();
-        return certificadoId;
+        return certificado.getId();
     }
 
     private String buildCertificateHTML(Certificate certificate) {
