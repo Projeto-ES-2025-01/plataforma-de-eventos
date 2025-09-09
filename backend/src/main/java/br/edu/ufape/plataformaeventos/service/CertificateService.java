@@ -42,6 +42,10 @@ public class CertificateService {
         return certificateRepository.findByParticipantAndEventId(event, participant);
     }
 
+    public Certificate findByCertificateCode(String code) {
+        return certificateRepository.findByCertificateCode(code);
+    }
+
     public List<Certificate> sendCertificatesForEvent(Long eventId) {
         Event event = eventRepository.findById(eventId)
             .orElseThrow(() -> new EntityNotFoundException("Evento não encontrado"));

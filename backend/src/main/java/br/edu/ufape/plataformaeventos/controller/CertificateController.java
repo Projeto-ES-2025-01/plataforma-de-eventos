@@ -21,6 +21,7 @@ import br.edu.ufape.plataformaeventos.service.EventService;
 import br.edu.ufape.plataformaeventos.service.StudentProfileService;
 
 
+
 @RestController
 @RequestMapping("/certificate")
 public class CertificateController {
@@ -67,6 +68,15 @@ public class CertificateController {
 
         return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
-    
 
+    @GetMapping("/verify/{code}")
+    public ResponseEntity<Certificate> verifyCertificate(@PathVariable String code) {
+        Certificate certificate = certificateService.findByCertificateCode(code);
+        if (certificate != null) {
+            return ResponseEntity.ok(certificate);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
 }
