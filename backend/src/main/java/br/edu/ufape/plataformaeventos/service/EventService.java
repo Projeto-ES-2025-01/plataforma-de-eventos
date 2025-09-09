@@ -25,7 +25,6 @@ import jakarta.transaction.Transactional;
 public class EventService {
     
     private static final String MENSAGEM_EVENTO_NAO_ENCONTRADO =  "Evento não encontrado!";
-    private static final String MENSAGEM_ESTUDANTE_NAO_ENCONTRADO =  "Estudante não encontrado!";
 
     private EventRepository eventRepository;
     private StudentProfileRepository studentRepository;

@@ -113,17 +113,17 @@ public class StudentProfileController {
     }
 
     @Transactional
-    @PostMapping("/confirmparticipation/{StudentEmail}/{eventId}")
-    public ResponseEntity<String> confirmParticipation(@PathVariable long eventId, @PathVariable String StudentEmail){
+    @PostMapping("/confirmparticipation/{studentEmail}/{eventId}")
+    public ResponseEntity<String> confirmParticipation(@PathVariable long eventId, @PathVariable String studentEmail){
         Event event = eventService.findById(eventId);
         if(event==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_EVENTO_NAO_ENCONTRADO);
         }
-        StudentProfile participant = studentProfileService.findByEmail(StudentEmail);
+        StudentProfile participant = studentProfileService.findByEmail(studentEmail);
         if(participant==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MENSAGEM_ESTUDANTE_NAO_ENCONTRADO);
         }
-        studentProfileService.confirmParticipant(eventId,StudentEmail);
+        studentProfileService.confirmParticipant(eventId,studentEmail);
         return ResponseEntity.status(HttpStatus.OK).body("Participação do evento confirmada com sucesso");
         
     }

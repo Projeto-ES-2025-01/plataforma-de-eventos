@@ -126,16 +126,16 @@ class EventTest {
 
     @Test
     void testSetParticipants() {
-        Set<StudentProfile> Participantes = new HashSet<>();
-        Participantes.add(participante1);
-        Participantes.add(participante2);
+        Set<StudentProfile> participantes = new HashSet<>();
+        participantes.add(participante1);
+        participantes.add(participante2);
 
-        event.setParticipants(Participantes);
+        event.setParticipants(participantes);
         
         assertEquals(2, event.getParticipants().size());
         assertTrue(event.getParticipants().contains(participante1));
         assertTrue(event.getParticipants().contains(participante2));
-        assertSame(Participantes, event.getParticipants());
+        assertSame(participantes, event.getParticipants());
     }
 
     @Test
